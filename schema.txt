@@ -1,0 +1,64 @@
+Table Users {
+  id int [pk]
+  firstName varchar
+  lastName varchar
+  email email
+  token varchar
+}
+
+Table Spots {
+  id int pk
+  ownerId int
+  address varchar
+  city varchar
+  state varchar
+  country varchar
+  lat flota
+  lng float
+  name varchar
+  description varchar
+  price float
+  createdAt date
+  updatedAt date
+  previewImage varchar
+  avgRating int
+}
+
+Table Booking {
+  id int pk
+  userId int
+  spotId int
+  startDate date
+  endDate date
+  createdAt date
+  updatedAt date
+}
+
+Table Reviews {
+  id int pk
+  userId int
+  spotId int
+  review varchar
+  stars int
+  createdAt date
+  updatedAt date
+}
+
+Table SpotImages {
+  id int pk
+  url varchar
+  spotId int
+  reviewId int
+}
+
+Ref: "Users"."id" < "Booking"."userId"
+
+Ref: "Spots"."id" < "Booking"."spotId"
+
+Ref: "Users"."id" < "Reviews"."userId"
+
+Ref: "Spots"."id" < "Reviews"."spotId"
+
+Ref: "SpotImages"."spotId" < "Spots"."id"
+
+Ref: "SpotImages"."reviewId" < "Reviews"."id"

@@ -1,8 +1,8 @@
-# `<name of application here>`
+# `AirBnB`
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![database schema]
 
 ## API Documentation
 
@@ -92,8 +92,8 @@ information.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST 
+  * URL: /login
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -161,8 +161,8 @@ user's information.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /signup
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -255,8 +255,8 @@ Returns all the spots.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /spots
   * Body: none
 
 * Successful Response
@@ -295,8 +295,8 @@ Returns all the spots owned (created) by the current user.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET 
+  * URL: /spots/:ownerId
   * Body: none
 
 * Successful Response
@@ -335,8 +335,8 @@ Returns the details of a spot specified by its id.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /spots/:id
   * Body: none
 
 * Successful Response
@@ -401,8 +401,8 @@ Creates and returns a new spot.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /spots
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1492,3 +1492,5 @@ Return spots filtered by query parameters.
       ]
     }
     ```
+
+    [database schema]: schema.png
