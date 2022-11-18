@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser');
 const { environment } = require('./config');
 const isProduction = environment === 'production';
 const app = express();
-// backend/app.js
 const routes = require('./routes');
 const { ValidationError } = require('sequelize');
 
@@ -16,6 +15,7 @@ const { ValidationError } = require('sequelize');
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
+app.use(routes); // Connect all the routes
 
 
 // Security Middleware
@@ -42,7 +42,6 @@ app.use(
     })
     );
 
-  app.use(routes); // Connect all the routes
 
   // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
