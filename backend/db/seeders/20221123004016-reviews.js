@@ -30,6 +30,12 @@ module.exports = {
         spotId: 4,
         userId: 1
       },
+      {
+        review: 'The place was so nice I did not need to step out of the house!',
+        stars: 5,
+        spotId: 2,
+        userId: 1
+      },
     ])
   },
 
@@ -54,6 +60,12 @@ module.exports = {
           stars: 5,
           spotId: 4,
           userId: 1
+        },
+        {
+          review: 'The place was so nice I did not need to step out of the house!',
+          stars: 5,
+          spotId: 2,
+          userId: 4
         },
       ]
     }, {})
