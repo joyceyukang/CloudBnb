@@ -21,11 +21,11 @@ module.exports = {
         lastName: 'Kang',
       },
       {
-        email: 'johnwsmith@gmail.com',
-        username: 'jsmith1',
+        email: 'michaelscott@gmail.com',
+        username: 'mscott1',
         hashedPassword: bcrypt.hashSync('password2'),
-        firstName: 'John',
-        lastName: 'Smith',
+        firstName: 'Michael',
+        lastName: 'Scott',
       },
       {
         email: 'katiedoe@gmail.com',

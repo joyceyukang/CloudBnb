@@ -64,6 +64,20 @@ router.post(
       })
     }
 
+    if(!firstName || !lastName || !email || !password || !username ||
+      firstName === "" || lastName === "" || email === "" || password === "" || username === "") {
+        return res.json({
+          "message": "Validation error",
+          "statusCode": 400,
+          "errors": {
+            "email": "Invalid email",
+            "username": "Username is required",
+            "firstName": "First Name is required",
+            "lastName": "Last Name is required"
+          }
+        })
+      }
+
 
     await setTokenCookie(res, user);
 
