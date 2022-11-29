@@ -392,7 +392,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
 //GET /api/spots/:spotId/reviews
 router.get('/:spotId/reviews', async (req, res) => {
-    const allReviews = await Review.findAll({
+    const allReviews = await Review.findOne({
         where: { spotId: req.params.spotId },
         include: [
             {
@@ -416,7 +416,7 @@ router.get('/:spotId/reviews', async (req, res) => {
         })
     }
 
-    if (!allReviews.length) {
+    if (!allReviews) {
         return res.json({
             message: "No reviews exist for this spot"
         })
