@@ -508,7 +508,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     if (!allBookings.length) {
         res.status(404)
         return res.json({
-            message: "Booking couldn't be found",
+            message: "Spot couldn't be found",
             statusCode: 404,
         })
     }
