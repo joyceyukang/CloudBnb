@@ -19,7 +19,15 @@ module.exports = {
       {
         url: 'diammondbar.png',
         reviewId: 2
-      }
+      },
+      {
+        url: 'miami.png',
+        reviewId: 3
+      },
+      {
+        url: 'la.png',
+        reviewId: 4
+      },
     ])
   },
 
@@ -34,7 +42,15 @@ module.exports = {
       {
         url: 'diammondbar.png',
         reviewId: 2
-      }
+      },
+      {
+        url: 'miami.png',
+        reviewId: 3
+      },
+      {
+        url: 'la.png',
+        reviewId: 4
+      },
     ]}, {})
   }
 };
