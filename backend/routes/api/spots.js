@@ -7,19 +7,28 @@ const router = express.Router();
 const { Op } = require("sequelize");
 const e = require('express');
 
+
 router.get('/', async (req, res) => {
 
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
-
-    if (!page || isNaN(page)) page = 1;
-    if (!size || isNaN(size)) size = 20;
-
     let pagination = {}
+    let pageAndSize = {}
 
-    if((parseInt(page) >= 1 && parseInt(page)) && (parseInt(size) >= 1 && parseInt(size) <= 20)) {
-        pagination.limit = size;
-        pagination.offset = size * (page - 1)
+    if(page) {
+        if (!page || isNaN(page) || page < 1 || page > 10) page = 1;
     }
+    if(size) {
+        if (!size || isNaN(size) || size < 1 || size > 20) size = 20;
+        if((parseInt(page) >= 1 && parseInt(page)) && (parseInt(size) >= 1 && parseInt(size) <= 20)) {
+            pagination.limit = size;
+            pagination.offset = size * (page - 1)
+        }
+        pageAndSize.page = page
+        pageAndSize.size = size
+    }
+
+
+
 
     const spots = await Spot.findAll({
         include: [
@@ -29,7 +38,8 @@ router.get('/', async (req, res) => {
             {
                 model: SpotImage
             }
-        ]
+        ],
+        ...pagination
     });
 
     let spotList = [];
@@ -40,6 +50,8 @@ router.get('/', async (req, res) => {
     spotList.forEach(spot => {
         let sum = 0;
         let total = 0
+
+        console.log(spot)
 
         spot.Reviews.forEach(star => {
             if (star.stars) {
@@ -54,21 +66,20 @@ router.get('/', async (req, res) => {
             spot.avgRating = "No ratings"
         }
 
-        if (spot.SpotImage) {
-            spot.previewImage = spot.SpotImage.url
+        if (spot.SpotImages[0]) {
+            spot.previewImage = spot.SpotImages[0].url
         }
-        else if (!spot.SpotImage) {
+        else if (!spot.SpotImages[0]) {
             spot.previewImage = "No Preview Image"
         }
 
-        delete spot.SpotImage
+        delete spot.SpotImages
         delete spot.Reviews
     })
 
     res.json({
         Spots: spotList,
-        page: page,
-        size: size
+        ...pageAndSize
     });
 })
 
