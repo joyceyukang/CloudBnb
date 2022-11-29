@@ -65,7 +65,7 @@ module.exports = {
           review: 'The place was so nice I did not need to step out of the house!',
           stars: 5,
           spotId: 2,
-          userId: 4
+          userId: 1
         },
       ]
     }, {})

@@ -66,7 +66,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    await queryInterface.bulkInsert(options, {
+    await queryInterface.bulkDelete(options, {
       [Op.or]: [
       {
         ownerId: 1,
