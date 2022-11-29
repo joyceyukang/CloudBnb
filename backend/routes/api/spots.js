@@ -69,7 +69,7 @@ router.get('/', async (req, res) => {
         if (spot.SpotImages[0]) {
             spot.previewImage = spot.SpotImages[0].url
         }
-        else if (!spot.SpotImages[0]) {
+        else if (!spot.SpotImages.length) {
             spot.previewImage = "No Preview Image"
         }
 
@@ -122,14 +122,14 @@ router.get('/current', requireAuth, async (req, res) => {
                 spot.avgRating = "No ratings"
             }
 
-            if (spot.SpotImage) {
-                spot.previewImage = spot.SpotImage.url
+            if (spot.SpotImages[0]) {
+                spot.previewImage = spot.SpotImages[0].url
             }
-            else if (!spot.SpotImage) {
+            else if (!spot.SpotImages.length) {
                 spot.previewImage = "No Preview Image"
             }
 
-            delete spot.SpotImage
+            delete spot.SpotImages
             delete spot.Reviews
         })
 
@@ -207,7 +207,6 @@ router.get('/:spotId', async (req, res) => {
 
     spot.Owner = owner;
 
-    delete spot.SpotImages 
     delete spot.Reviews
 
     res.json(spot)
