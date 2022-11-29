@@ -36,13 +36,13 @@ router.get('/current', requireAuth, async (req, res) => {
         });
 
         bookingList.forEach(booking => {
-            if (booking.Spot.SpotImage) {
-                booking.Spot.previewImage = booking.Spot.SpotImage.url
-            } else if (!booking.Spot.SpotImage) {
+            if (booking.Spot.SpotImages) {
+                booking.Spot.previewImage = booking.Spot.SpotImages.url
+            } else if (!booking.Spot.SpotImages) {
                 booking.Spot.previewImage = "No preview image"
             }
 
-            delete booking.Spot.SpotImage
+            delete booking.Spot.SpotImages
         })
 
         res.json(bookingList)
