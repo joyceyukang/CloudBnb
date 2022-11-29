@@ -35,7 +35,6 @@ router.post(
   ,
   async (req, res) => {
     const { firstName, lastName, email, password, username } = req.body;
-    const user = await User.signup({ firstName, lastName, email, username, password });
 
     const existingEmail = await User.findOne({
       where: { email: email }
@@ -43,6 +42,7 @@ router.post(
     const existingUsername = await User.findOne({
       where: { username: username }
     })
+
 
     if (existingEmail) {
       return res.json({
@@ -64,26 +64,32 @@ router.post(
       })
     }
 
-    if(!firstName || !lastName || !email || !password || !username ||
+    if (!firstName || !lastName || !email || !password || !username ||
       firstName === "" || lastName === "" || email === "" || password === "" || username === "") {
-        return res.json({
-          "message": "Validation error",
-          "statusCode": 400,
-          "errors": {
-            "email": "Invalid email",
-            "username": "Username is required",
-            "firstName": "First Name is required",
-            "lastName": "Last Name is required"
-          }
-        })
-      }
+      return res.json({
+        "message": "Validation error",
+        "statusCode": 400,
+        "errors": {
+          "email": "Invalid email",
+          "username": "Username is required",
+          "firstName": "First Name is required",
+          "lastName": "Last Name is required"
+        }
+      })
+    }
 
+    let user = await User.signup({ firstName, lastName, email, username, password });
+    
+    let token = await setTokenCookie(res, user);
 
-    await setTokenCookie(res, user);
+    user = user.toJSON()
 
-    return res.json({
-      user
-    });
+    user.token = token
+
+    delete user.createdAt
+    delete user.updatedAt
+    
+    return res.json(user);
   }
 );
 
