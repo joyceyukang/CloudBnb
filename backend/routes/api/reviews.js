@@ -40,13 +40,13 @@ router.get('/current', requireAuth, async (req, res) => {
         });
 
         reviewList.forEach(review => {
-            if (review.Spot.SpotImage) {
-                review.Spot.previewImage = review.Spot.SpotImage.url
-            } else if (!review.Spot.SpotImage) {
+            if (review.Spot.SpotImages) {
+                review.Spot.previewImage = review.Spot.SpotImages.url
+            } else if (!review.Spot.SpotImages) {
                 review.Spot.previewImage = "No preview image"
             }
 
-            delete review.Spot.SpotImage
+            delete review.Spot.SpotImages
         })
 
         res.json(reviewList)

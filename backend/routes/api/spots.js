@@ -207,7 +207,7 @@ router.get('/:spotId', async (req, res) => {
 
     spot.Owner = owner;
 
-    delete spot.SpotImage
+    delete spot.SpotImages 
     delete spot.Reviews
 
     res.json(spot)
