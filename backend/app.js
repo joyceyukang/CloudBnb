@@ -15,7 +15,6 @@ const { ValidationError } = require('sequelize');
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
-app.use(routes); // Connect all the routes
 
 
 // Security Middleware
@@ -29,21 +28,22 @@ app.use(
   helmet.crossOriginResourcePolicy({
     policy: "cross-origin"
   })
-  );
+);
 
-  // Set the _csrf token and create req.csrfToken method
-  app.use(
-    csurf({
-      cookie: {
-        secure: isProduction,
-        sameSite: isProduction && "Lax",
-        httpOnly: true
-      }
-    })
-    );
+// Set the _csrf token and create req.csrfToken method
+app.use(
+  csurf({
+    cookie: {
+      secure: isProduction,
+      sameSite: isProduction && "Lax",
+      httpOnly: true
+    }
+  })
+);
 
+app.use(routes); // Connect all the routes
 
-  // Catch unhandled requests and forward to error handler.
+// Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
   const err = new Error("The requested resource couldn't be found.");
   err.title = "Resource Not Found";
@@ -74,4 +74,4 @@ app.use((err, _req, res, _next) => {
   });
 });
 
-  module.exports = app;
+module.exports = app;
