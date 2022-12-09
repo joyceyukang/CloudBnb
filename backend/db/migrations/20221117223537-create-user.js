@@ -18,12 +18,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
+      email: {
         allowNull: false,
         type: Sequelize.STRING,
         unique: true
       },
-      email: {
+      username: {
         allowNull: false,
         type: Sequelize.STRING,
         unique: true
