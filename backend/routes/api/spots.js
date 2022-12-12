@@ -27,9 +27,6 @@ router.get('/', async (req, res) => {
         pageAndSize.size = size
     }
 
-
-
-
     const spots = await Spot.findAll({
         include: [
             {

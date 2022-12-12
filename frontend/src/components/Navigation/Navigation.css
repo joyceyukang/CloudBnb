@@ -1,3 +1,10 @@
 .hidden {
     display: none
 }
+
+.nav {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+}
