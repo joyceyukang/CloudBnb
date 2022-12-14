@@ -14,22 +14,22 @@ module.exports = {
 
     await queryInterface.bulkInsert(options, [
       {
-        url: 'diammondbar.png',
+        url: 'https://live.staticflickr.com/33/46332737_45532d3cbc_n.jpg',
         preview: true,
         spotId: 1
       },
       {
-        url: 'losangeles.png',
+        url: 'https://live.staticflickr.com/3107/3129380746_1b1d4aec81_n.jpg',
         preview: true,
         spotId: 2
       },
       {
-        url: 'fullerton.png',
+        url: 'https://live.staticflickr.com/6008/5944226551_b244292223_n.jpg',
         preview: true,
         spotId: 3
       },
       {
-        url: 'miami.png',
+        url: 'https://live.staticflickr.com/16/19871161_85ae9ae99e_n.jpg',
         preview: true,
         spotId: 4
       }
@@ -42,22 +42,22 @@ module.exports = {
     await queryInterface.bulkDelete(options, {
       [Op.or]: [
         {
-          url: 'diammondbar.png',
+          url: 'https://live.staticflickr.com/33/46332737_45532d3cbc_n.jpg',
           preview: true,
           spotId: 1
         },
         {
-          url: 'losangeles.png',
+          url: 'https://live.staticflickr.com/3107/3129380746_1b1d4aec81_n.jpg',
           preview: true,
           spotId: 2
         },
         {
-          url: 'fullerton.png',
+          url: 'https://live.staticflickr.com/6008/5944226551_b244292223_n.jpg',
           preview: true,
           spotId: 3
         },
         {
-          url: 'miami.png',
+          url: 'https://live.staticflickr.com/16/19871161_85ae9ae99e_n.jpg',
           preview: true,
           spotId: 4
         }

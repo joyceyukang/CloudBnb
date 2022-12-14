@@ -24,6 +24,12 @@ function LoginFormModal() {
       );
   };
 
+  const demoUser = (e) => {
+    e.preventDefault();
+
+    return dispatch(sessionActions.login({credential, password}))
+  }
+
   return (
     <>
       <h1>Log In</h1>
@@ -52,6 +58,7 @@ function LoginFormModal() {
           />
         </label>
         <button type="submit">Log In</button>
+        <button onClick={demoUser}>Demo</button>
       </form>
     </>
   );

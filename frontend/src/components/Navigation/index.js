@@ -1,45 +1,28 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import OpenModalButton from '../OpenModalButton';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = (
-      <li>
-        <ProfileButton user={sessionUser} />
-      </li>
-    );
-  } else {
-    sessionLinks = (
-      <li>
-        <OpenModalButton
-          buttonText="Log In"
-          modalComponent={<LoginFormModal />}
-        />
-        <OpenModalButton
-          buttonText="Sign Up"
-          modalComponent={<SignupFormModal />}
-        />
-      </li>
-    );
-  }
 
   return (
     <ul className='nav'>
       <li>
         <NavLink exact to="/">Home</NavLink>
       </li>
-      <div className="logSign">
-        {isLoaded && sessionLinks}
-      </div>
+      <h1 className='logo'>Cloudbnb</h1>
+      <li className='create'>
+        <NavLink to="/spots/new">Cloudbnb your home</NavLink>
+      </li>
+      {isLoaded && (
+        <div>
+          <li>
+            <ProfileButton user={sessionUser} />
+          </li>
+        </div>
+      )}
     </ul>
   );
 }
