@@ -10,7 +10,7 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -27,7 +27,8 @@ function LoginFormModal() {
   const demoUser = (e) => {
     e.preventDefault();
 
-    return dispatch(sessionActions.login({credential, password}))
+    setCredential('demoUser')
+    setPassword('demopassword')
   }
 
   return (

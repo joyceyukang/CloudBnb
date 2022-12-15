@@ -6,6 +6,8 @@ import Navigation from "./components/Navigation";
 import AllSpots from "./components/AllSpots/AllSpots";
 import CreateSpot from "./components/CreateSpot/CreateSpot";
 import SingleSpot from "./components/SingleSpot/SingleSpot";
+import EditSpot from "./components/EditSpot/EditSpot";
+import { getSpots } from "./store/spotReducer";
 
 function App() {
   const dispatch = useDispatch();
@@ -13,6 +15,7 @@ function App() {
   
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(getSpots());
   }, [dispatch]);
 
   return (
@@ -20,9 +23,10 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path={['/']} component={AllSpots}/>
+          <Route exact path='/' component={AllSpots}/>
           <Route path='/spots/new' component={CreateSpot} />
           <Route exact path='/spots/:spotId' component={SingleSpot} />
+          <Route exact path='/spots/:spotId/edit' component={EditSpot} />
         </Switch>
       )}
     </>

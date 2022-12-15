@@ -1,11 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { createSpot } from '../../store/spotReducer';
 import './CreateSpot.css'
 
 
 const CreateSpot = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const sessionUser = useSelector(state => state.session.user)
+
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -16,6 +20,7 @@ const CreateSpot = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    // const [formErrors, setFormErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,21 +37,56 @@ const CreateSpot = () => {
             price,
         }
 
-       await dispatch(createSpot(payload, imageUrl))
+        // console.log("TEST", payload, imageUrl)
 
-       reset();
+        // setFormErrors(validate(payload))
+
+        // if(Object.keys(formErrors).length === 0) {
+        // }
+        await dispatch(createSpot(payload, imageUrl))
+        
+        history.push('/')
     }
 
-    const reset = () => {
-        setAddress('');
-        setCity('');
-        setState('');
-        setCountry('');
-        setName('');
-        setDescription('');
-        setPrice('');
-        setImageUrl('');
-    }
+    // const validate = (values) => {
+    //     const errors = {};
+
+    //     if(!values.address) {
+    //         errors.address = "Address is required."
+    //     }
+    //     if(!values.city) {
+    //         errors.city = "City is required."
+    //     } 
+    //     if(!values.state) {
+    //         errors.state = "State is required."
+    //     } 
+    //     if(!values.country) {
+    //         errors.country = "Country is required."
+    //     } 
+    //     if(!values.name) {
+    //         errors.name = "Name is required."
+    //     } 
+    //     if(!values.description) {
+    //         errors.description = "Description is required."
+    //     } 
+    //     if(!values.price) {
+    //         errors.price = "Price is required."
+    //     }
+        
+    //     return errors;
+    // }
+    
+    //    reset();
+    // const reset = () => {
+    //     setAddress('');
+    //     setCity('');
+    //     setState('');
+    //     setCountry('');
+    //     setName('');
+    //     setDescription('');
+    //     setPrice('');
+    //     setImageUrl('');
+    // }
 
     return (
         <div className="inputBox">
@@ -58,6 +98,7 @@ const CreateSpot = () => {
                     value={address}
                     placeholder="Address"
                     name="address"
+                    required
                 />
                 <input
                     type="text"
@@ -65,6 +106,7 @@ const CreateSpot = () => {
                     value={city}
                     placeholder="City"
                     name="city"
+                    required
                 />
                 <input
                     type="text"
@@ -72,6 +114,7 @@ const CreateSpot = () => {
                     value={state}
                     placeholder="State"
                     name="state"
+                    required
                 />
                 <input
                     type="text"
@@ -79,6 +122,7 @@ const CreateSpot = () => {
                     value={country}
                     placeholder="Country"
                     name="country"
+                    required
                 />
                 <input
                     type="text"
@@ -86,6 +130,7 @@ const CreateSpot = () => {
                     value={name}
                     placeholder="Name"
                     name="name"
+                    required
                 />
                 <textarea
                     value={description}
@@ -93,6 +138,7 @@ const CreateSpot = () => {
                     name="description"
                     placeholder="Description"
                     rows="10"
+                    required
                 ></textarea>
                  <input
                     type="text"
@@ -100,15 +146,17 @@ const CreateSpot = () => {
                     value={price}
                     placeholder="Price per night"
                     name="price"
+                    required
                 />
                  <input
                     type="text"
                     onChange={(e) => setImageUrl(e.target.value)}
                     value={imageUrl}
-                    placeholder="Image URL"
+                    placeholder="Preview Image URL"
                     name="imageUrl"
+                    required
                 />
-                <button className="submit" type="submit">Submit</button>
+                {sessionUser && sessionUser.firstName !== 'Demo' ? <button className="submit" type="submit">Submit</button> : <p>Unable to create a spot if not logged in</p>}
             </form>
         </div>
     )

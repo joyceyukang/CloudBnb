@@ -389,7 +389,16 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
 //GET /api/spots/:spotId/reviews
 router.get('/:spotId/reviews', async (req, res) => {
-    const allReviews = await Review.findOne({
+    const spot = await Spot.findByPk(req.params.spotId)
+
+    if (!spot) {
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+        })
+    }
+    const allReviews = await Review.findAll({
         where: { spotId: req.params.spotId },
         include: [
             {
@@ -403,15 +412,7 @@ router.get('/:spotId/reviews', async (req, res) => {
         ]
     })
 
-    const spot = await Spot.findByPk(req.params.spotId)
-
-    if (!spot) {
-        res.status(404)
-        return res.json({
-            message: "Spot couldn't be found",
-            statusCode: 404,
-        })
-    }
+    // console.log("HELLOOOO    ", allReviews)
 
     if (!allReviews) {
         return res.json({
@@ -419,9 +420,7 @@ router.get('/:spotId/reviews', async (req, res) => {
         })
     }
 
-    res.json({
-        Reviews: allReviews
-    })
+    res.json(allReviews)
 })
 
 //POST /api/spots/:spotId/reviews

@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { getSpots } from '../../store/spotReducer';
-import { Route, Switch, NavLink } from 'react-router-dom';
-import SingleSpot from '../SingleSpot/SingleSpot'
 import './AllSpots.css'
 
 const AllSpots = () => {
-    const dispatch = useDispatch()
     const spots = Object.values(useSelector(state => state.spots.allSpots));
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getSpots())
@@ -18,11 +17,17 @@ const AllSpots = () => {
             <ul className='items'>
                 {spots.map(({ id, name, previewImage, state, avgRating, price }) => (
                     <li key={id}>
-                        <img className='spotImages'
-                            src={previewImage}
-                            alt={name} />
                         <div className='link'>
-                            <NavLink key={name} to={`/spots/${id}`}>{`${name}, ${state}`}</NavLink>
+                            <NavLink key={name} to={`/spots/${id}`}>
+                                <div>
+                                    <img className='spotImages'
+                                        src={previewImage}
+                                        alt={name} />
+                                </div>
+                                {`${name}, ${state}`}
+                            </NavLink>
+                        </div>
+                        <div>
                             {avgRating}
                         </div>
                         {`$${price}`}
