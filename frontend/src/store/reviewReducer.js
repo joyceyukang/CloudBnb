@@ -16,11 +16,6 @@ const addReview = review => ({
     review
 })
 
-const editReview = editedReview => ({
-    type: EDIT_REVIEW,
-    editedReview
-})
-
 const removeReview = reviewId => ({
     type: REMOVE_REVIEW,
     reviewId
@@ -29,57 +24,46 @@ const removeReview = reviewId => ({
 //get all Reviews
 export const getReviews = (spotId) => async dispatch => {
     const spotReviews = await fetch(`/api/spots/${spotId}/reviews`)
-    const userReviews = await fetch('/api/reviews/current')
+    const userReviews = await csrfFetch('/api/reviews/current')
 
+    
     if (spotReviews.ok && userReviews.ok) {
         const spotList = await spotReviews.json();
         const userList = await userReviews.json();
 
-        // console.log("HELLO ",spotList, userList)
+        // console.log("HELLO ", spotList)
 
         dispatch(loadReviews(spotList, userList))
     }
 }
 
 //create Review
-export const createReview = (spot, spotId) => async dispatch => {
+export const createReview = (review, spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(spot)
+        body: JSON.stringify(review)
     })
 
     if (response.ok) {
-        const newSpot = await response.json();
-
+        const newReview = await response.json();
+        // console.log("NEW REVIEW: ", newReview)
+        dispatch(addReview(newReview))
+        return newReview
     }
 }
 
-// //update Review
-// export const updateReview = (spot, id) => async dispatch => {
-//     const response = await csrfFetch(`/api/spots/${id}`, {
-//         method: 'PUT',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(spot)
-//     })
+//delete Review
+export const deleteReview = (reviewId) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE'
+    })
 
-//     if(response.ok) {
-//         const edit = await response.json()
-//         dispatch(editSpot(edit))
-//     }
-// }
-
-// //delete Review
-// export const deleteReview = (id) => async dispatch => {
-//     const response = await csrfFetch(`/api/spots/${id}`, {
-//         method: 'DELETE'
-//     })
-
-//     if(response.ok) {
-//         await response.json()
-//         dispatch(removeSpot(id))
-//     }
-// }
+    if(response.ok) {
+        await response.json()
+        dispatch(removeReview(reviewId))
+    }
+}
 
 const initialState = {
     spot: {},
@@ -95,31 +79,48 @@ const reviewReducer = (state = initialState, action) => {
             newState = { ...state };
             allUserReviews = {}
             allSpotReviews = {};
+
+            // console.log("LOAD USER: ", action.userList, "LOAD SPOT: ", action.spotList)
             action.userList.forEach(review => {
                 allUserReviews[review.id] = review
             })
+
             action.spotList.forEach(review => {
                 allSpotReviews[review.id] = review
             })
+
             newState.spot = allSpotReviews
             newState.user = allUserReviews
+
             return newState;
-        // case ADD_REVIEW:
-        //     newState = { ...state };
-        //     newSingleSpot = action.spot
-        //     newState.allSpots[newSingleSpot.id] = newSingleSpot
-        //     return newState;
-        // case EDIT_REVIEW:
-        //     newState = {...state};
-        //     newSingleSpot = action.editedSpot
-        //     newState.allSpots[newSingleSpot.id] = newSingleSpot;
-        //     return newState;
-        // case REMOVE_REVIEW:
-        //     newState = {...state};
-        //     newAllSpots = {...state.allSpots};
-        //     delete newAllSpots[action.spotId]
-        //     newState.allSpots = newAllSpots;
-        //     return newState;
+        case ADD_REVIEW:
+            newState = { ...state };
+            allUserReviews = newState.user
+            allSpotReviews = newState.spot
+
+            allUserReviews[action.review.id] = action.review
+            allSpotReviews[action.review.id] = action.review
+
+            newState.user = allUserReviews
+            newState.spot = allSpotReviews
+            // console.log("ADDING REVIEW ", newState)
+            return newState;
+        case REMOVE_REVIEW:
+            newState = {...state};
+
+            allUserReviews = {...state.user};
+            allSpotReviews = {...state.spot};
+
+            console.log("DELETE REVIEW    ", allUserReviews)
+            console.log("DELETE REVIEW SPOT    ", allSpotReviews[action.reviewId])
+
+            delete allUserReviews[action.reviewId]
+            delete allSpotReviews[action.reviewId]
+
+            newState.user = allUserReviews
+            newState.spot = allSpotReviews
+
+            return newState;
         default:
             return state
     }

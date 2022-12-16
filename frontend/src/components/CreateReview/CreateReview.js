@@ -1,17 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { createReview } from '../../store/spotReducer';
+import { createReview } from '../../store/reviewReducer';
 import './CreateReview.css'
 
 
-const CreateSpot = () => {
+const CreateReview = ({ spotId }) => {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const sessionUserId = useSelector(state => state.session.user.id)
+    const currentState = useSelector(state => state)
+
+    //current user
+    const sessionUserId = currentState.session.user.id
+
+    //current spot reviews
+    const spotReviews = Object.values(currentState.reviews.spot)
+
+    //does current user have a review
+    const userReview = spotReviews.find(review => review.userId === sessionUserId)
+
+    const ownerId = currentState.spots.allSpots[spotId].ownerId
+
+    console.log(ownerId)
 
     const [review, setReview] = useState('');
-    const [stars, setStars] = useState(1);
+    const [stars, setStars] = useState('');
     // const [formErrors, setFormErrors] = useState({});
 
     const handleSubmit = async (e) => {
@@ -22,29 +33,10 @@ const CreateSpot = () => {
             stars
         }
 
-        // console.log("TEST", payload, imageUrl)
-
-        // setFormErrors(validate(payload))
-
-        // if(Object.keys(formErrors).length === 0) {
-        // }
-        await dispatch(createReview(payload, ))
+        await dispatch(createReview(payload, spotId))
 
         reset();
     }
-
-    // const validate = (values) => {
-    //     const errors = {};
-
-    //     if(!values.review) {
-    //         errors.review = ""
-    //     }
-    //     if(!values.stars) {
-    //         errors.stars = ""
-    //     } 
-
-    //     return errors;
-    // }
 
     const reset = () => {
         setReview('');
@@ -65,15 +57,17 @@ const CreateSpot = () => {
                     type="number"
                     onChange={(e) => setStars(e.target.value)}
                     value={stars}
-                    placeholder="5"
+                    placeholder="Stars"
                     name="star"
-                    min= "1"
-                    max= "5"
+                    min="1"
+                    max="5"
                 />
-                {sessionUser && sessionUser.firstName !== 'Demo' ? <button className="submit" type="submit">Submit</button> : <p>Unable to create a spot if not logged in</p>}
+               <button className="submitReview" type="submit" disabled={!!userReview || sessionUserId === ownerId}>Submit</button>
             </form>
         </div>
     )
 }
 
-export default CreateSpot;
+// <button className="submit" type="submit">Submit</button> 
+
+export default CreateReview;

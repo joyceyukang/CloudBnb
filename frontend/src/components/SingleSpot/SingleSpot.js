@@ -1,11 +1,11 @@
-// import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { spotDetails } from '../../store/spotReducer';
 import { useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { deleteSpot } from '../../store/spotReducer';
-import { getReviews } from '../../store/reviewReducer';
+import { getReviews, deleteReview } from '../../store/reviewReducer';
+import CreateReview from '../CreateReview/CreateReview';
 
 const SingleSpot = () => {
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const SingleSpot = () => {
 
     const currentState = useSelector(state => state)
 
-    const { id, name, state, city, country, price, description, avgStarRating, ownerId } = currentState.spots.singleSpot
+    const { id, name, state, city, country, description, price, avgStarRating, ownerId } = currentState.spots.singleSpot
     const spotImages = currentState.spots.singleSpot.SpotImages
 
     //current user
@@ -22,6 +22,7 @@ const SingleSpot = () => {
 
     //current spot reviews
     const spotReviews = Object.values(currentState.reviews.spot)
+
 
     // console.log(spotReviews)
 
@@ -39,6 +40,17 @@ const SingleSpot = () => {
 
         dispatch(deleteSpot(spotId)).then(
             history.push('/')
+        )
+    }
+
+    const deletedReview = (e) => {
+
+        const review = spotReviews.find(spot => spot.userId === sessionUserId)
+
+        e.preventDefault()
+
+        dispatch(deleteReview(review.id)).then(
+            history.push(`/spots/${spotId}`)
         )
     }
 
@@ -60,28 +72,29 @@ const SingleSpot = () => {
                 <span>{`$${price} night`}</span>
                 <p>{description}</p>
             </div>
-            <div>
+            <div className="review-card">
                 <span>
                     <h4>Reviews:</h4>
-                    {spotReviews.length ? spotReviews.map(({ id, review, stars, userId}) => (
-                        <div>
-                            <li key={id}>{review}</li>
-                            <li key={userId}>Stars: {stars}</li>
+                    {spotReviews.length ? spotReviews.map(({ id, review, stars, userId }) => (
+                        <div key={review}>
+                            <li key={id}>{review}
+                            Stars: {stars}
+                            {sessionUserId === userId ? <button onClick={deletedReview} to={`/spots/${spotId}`}>Delete Review</button> : null}
+                            </li>
                         </div>
-                        )) 
+                    ))
                         : <p>No Reviews</p>}
                 </span>
                 <span>
-                    
+                    <CreateReview key={spotId} spotId={spotId}/>
                 </span>
-                <span>Edit will navigate to new page? and delete will be dispatched here</span>
             </div>
             <div>
                 <span>{sessionUserId === ownerId ? <div>
                     <NavLink key={spotId} to={`/spots/${spotId}/edit`}>Edit</NavLink>
                 </div> : null}
                 </span>
-                <span>{sessionUserId === ownerId ? <Link onClick={deletedSpot} to='/spots'>Delete</Link> : null}</span>
+                <span>{sessionUserId === ownerId ? <NavLink onClick={deletedSpot} to='/spots'>Delete</NavLink> : null}</span>
             </div>
         </div >
     )

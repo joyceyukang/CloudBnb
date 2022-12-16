@@ -48,7 +48,7 @@ router.get('/', async (req, res) => {
         let sum = 0;
         let total = 0
 
-        console.log(spot)
+        // console.log(spot)
 
         spot.Reviews.forEach(star => {
             if (star.stars) {
@@ -475,7 +475,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
         })
 
         const newReview = await Review.findOne({
-            where: { spotId: req.params.spotId }
+            where: { review: review }
         })
 
         res.json(newReview)
