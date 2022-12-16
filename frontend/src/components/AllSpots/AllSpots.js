@@ -15,7 +15,7 @@ const AllSpots = () => {
     return (
         <div>
             <ul className='items'>
-                {spots.map(({ id, name, previewImage, state, avgRating, price }) => (
+                {spots.map(({ id, name, previewImage, state, city, avgRating, price }) => (
                     <li key={id}>
                         <div className='link'>
                             <NavLink key={name} to={`/spots/${id}`}>
@@ -24,7 +24,7 @@ const AllSpots = () => {
                                         src={previewImage}
                                         alt={name} />
                                 </div>
-                                {`${name}, ${state}`}
+                                {`${city}, ${state}`}
                             </NavLink>
                         </div>
                         <div>

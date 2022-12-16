@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { spotDetails } from '../../store/spotReducer';
 import { useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { deleteSpot } from '../../store/spotReducer';
 import { getReviews, deleteReview } from '../../store/reviewReducer';
 import CreateReview from '../CreateReview/CreateReview';
+import star from './star.png'
+import './SingleSpot.css'
 
 const SingleSpot = () => {
     const dispatch = useDispatch();
@@ -57,15 +59,15 @@ const SingleSpot = () => {
     if (!spotImages) return null;
 
     return (
-        <div className='spot'>
+        <div className='single-spot'>
             <h1>{name}</h1>
             <div>
-                <span>{avgStarRating ? avgStarRating : 'New'}</span>
+                <span>{avgStarRating ? <div><img src={star} alt='Rating'/> {avgStarRating}</div> : <div> <img src={star} alt='Rating'/> New </div>}</span>
                 <span>{` ${city}, ${state}, ${country}`}</span>
             </div>
             <div>
                 {spotImages.map(image => (
-                    <img key={id} src={image.url} alt={name} />
+                    <img className="singleImg" key={id} src={image.url} alt={name} />
                 ))}
             </div>
             <div>
