@@ -1,10 +1,24 @@
+.create {
+    display: flex;
+    margin-left: 800px;
+}
+
 .hidden {
     display: none
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: salmon;
+}
+
 .nav {
     display: flex;
-    list-style: none;
     justify-content: space-between;
+    align-items: center;
+    list-style: none;
     font-family: Arial, Helvetica, sans-serif;
+    padding-right: 40px;
 }

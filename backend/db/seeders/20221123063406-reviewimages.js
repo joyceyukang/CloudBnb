@@ -13,19 +13,19 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert(options, [
       {
-        url: 'losangeles.png',
+        url: 'nashua.png',
         reviewId: 1
       },
       {
-        url: 'diammondbar.png',
+        url: 'scranton.png',
         reviewId: 2
       },
       {
-        url: 'miami.png',
+        url: 'stamford.png',
         reviewId: 3
       },
       {
-        url: 'la.png',
+        url: 'buffalo.png',
         reviewId: 4
       },
     ])
@@ -35,22 +35,22 @@ module.exports = {
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
       [Op.or]: [
-      {
-        url: 'losangeles.png',
-        reviewId: 1
-      },
-      {
-        url: 'diammondbar.png',
-        reviewId: 2
-      },
-      {
-        url: 'miami.png',
-        reviewId: 3
-      },
-      {
-        url: 'la.png',
-        reviewId: 4
-      },
+        {
+          url: 'nashua.png',
+          reviewId: 1
+        },
+        {
+          url: 'scranton.png',
+          reviewId: 2
+        },
+        {
+          url: 'stamford.png',
+          reviewId: 3
+        },
+        {
+          url: 'buffalo.png',
+          reviewId: 4
+        },
     ]}, {})
   }
 };

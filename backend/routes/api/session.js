@@ -25,9 +25,9 @@ router.post(
   validateLogin,
   async (req, res, next) => {
     const { credential, password } = req.body;
-    console.log('in login route', credential, password)
+    // console.log('in login route', credential, password)
     const user = await User.login({ credential, password });
-    console.log('this is user', user)
+    // console.log('this is user', user)
     if (!user) {
       const err = new Error('Login failed');
       err.status = 401;
@@ -75,12 +75,8 @@ router.get(
   (req, res) => {
     const { user } = req;
     if (user) {
-      return res.json({
-        user: user.toSafeObject()
-      });
-    } else return res.json({
-      "user": null
-    });
+      return res.json({user: user.toSafeObject()});
+    } else return res.json({user: user});
   }
 );
 

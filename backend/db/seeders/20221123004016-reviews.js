@@ -13,7 +13,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(options, [
       {
-        review: 'The home was very cozy and welcoming. I would love to come here again and recommend it to others as well.',
+        review: 'The office was very cozy and welcoming. I would love to come here again and recommend it to others as well.',
         stars: 4,
         spotId: 2,
         userId: 2
@@ -25,13 +25,13 @@ module.exports = {
         userId: 3
       },
       {
-        review: 'Fantastic getaway! It almost felt like I was in the Bahamas. I would recommend to any and all!',
+        review: 'Fantastic getaway! It felt like I was completely surrounded by nature. I would recommend to any and all!',
         stars: 5,
         spotId: 4,
         userId: 1
       },
       {
-        review: 'The place was so nice I did not need to step out of the house!',
+        review: 'The place was so nice I did not need to step out of the office!',
         stars: 5,
         spotId: 2,
         userId: 1
@@ -44,7 +44,7 @@ module.exports = {
     await queryInterface.bulkDelete(options, {
       [Op.or]: [
         {
-          review: 'The home was very cozy and welcoming. I would love to come here again and recommend it to others as well.',
+          review: 'The office was very cozy and welcoming. I would love to come here again and recommend it to others as well.',
           stars: 4,
           spotId: 2,
           userId: 2
@@ -52,17 +52,17 @@ module.exports = {
         {
           review: 'The place was nice but there was nothing to do around the area.',
           stars: 2,
-          spotId: 2,
+          spotId: 1,
           userId: 3
         },
         {
-          review: 'Fantastic getaway! It almost felt like I was in the Bahamas. I would recommend to any and all!',
+          review: 'Fantastic getaway! It felt like I was completely surrounded by nature. I would recommend to any and all!',
           stars: 5,
           spotId: 4,
           userId: 1
         },
         {
-          review: 'The place was so nice I did not need to step out of the house!',
+          review: 'The place was so nice I did not need to step out of the office!',
           stars: 5,
           spotId: 2,
           userId: 1
