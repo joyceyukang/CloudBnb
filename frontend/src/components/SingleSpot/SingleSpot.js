@@ -4,7 +4,7 @@ import { spotDetails } from '../../store/spotReducer';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { deleteSpot } from '../../store/spotReducer';
-import { getReviews, deleteReview } from '../../store/reviewReducer';
+import { getSpotReviews, getUserReviews, deleteReview } from '../../store/reviewReducer';
 import CreateReview from '../CreateReview/CreateReview';
 import star from './star.png'
 import './SingleSpot.css'
@@ -22,14 +22,14 @@ const SingleSpot = () => {
     //current spot reviews
     const spotReviews = Object.values(currentState.reviews.spot)
 
-
     // console.log(spotReviews)
     // console.log(spot)
     // console.log(currentState.spots.singleSpot)
 
     useEffect(() => {
         dispatch(spotDetails(spotId))
-        dispatch(getReviews(spotId))
+        dispatch(getSpotReviews(spotId))
+        dispatch(getUserReviews())
     }, [dispatch, spotId])
 
 
@@ -103,7 +103,9 @@ const SingleSpot = () => {
                 </div>
             </div >
         )
-    } else {
+    }
+
+    else {
         return (
             <div className='single-spot'>
                 <h1>{name}</h1>

@@ -19,8 +19,6 @@ const CreateReview = ({ spotId }) => {
 
     const ownerId = currentState.spots.allSpots[spotId].ownerId
 
-    console.log(ownerId)
-
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
     // const [formErrors, setFormErrors] = useState({});

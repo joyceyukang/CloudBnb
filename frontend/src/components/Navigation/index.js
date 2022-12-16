@@ -9,20 +9,30 @@ function Navigation({ isLoaded }) {
 
   return (
     <ul className='nav'>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-      </li>
-      <h1 className='logo'>Cloudbnb</h1>
-      <li className='create'>
-        <NavLink to="/spots/new">Cloudbnb your home</NavLink>
-      </li>
-      {isLoaded && (
-        <div>
-          <li>
-            <ProfileButton user={sessionUser} />
-          </li>
-        </div>
-      )}
+      <div className="bar-left">
+        <li>
+          <NavLink exact to="/">
+            <img className="cloud" src="https://img.icons8.com/ios/512/happy-cloud.png" alt="logo" />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/">
+            <h1 className='logo'>Cloudbnb</h1>
+          </NavLink>
+        </li>
+      </div>
+      <div className="bar-right">
+        <li>
+          <NavLink to="/spots/new">Cloudbnb your home</NavLink>
+        </li>
+        {isLoaded && (
+          <div>
+            <li>
+              <ProfileButton user={sessionUser} />
+            </li>
+          </div>
+        )}
+      </div>
     </ul>
   );
 }

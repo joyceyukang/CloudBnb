@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { updateSpot } from '../../store/spotReducer';
+import { useState, useEffect } from 'react';
+import { spotDetails, updateSpot } from '../../store/spotReducer';
 import { useParams, useHistory } from 'react-router-dom';
 
 //fix refresh on edit page
@@ -8,9 +8,16 @@ import { useParams, useHistory } from 'react-router-dom';
 const EditSpot = () => {
     const dispatch = useDispatch()
     const { spotId } = useParams()
+
+    useEffect(() => {
+        dispatch(spotDetails(spotId))
+    }, [dispatch])
+    
     const spot = useSelector(state => state.spots.singleSpot)
     const history = useHistory()
 
+    // console.log(spot)
+    
     const [address, setAddress] = useState(spot.address);
     const [city, setCity] = useState(spot.city);
     const [state, setState] = useState(spot.state);
