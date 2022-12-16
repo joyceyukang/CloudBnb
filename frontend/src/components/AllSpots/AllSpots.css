@@ -29,6 +29,7 @@ a:hover {
 
 .spotImages {
     border-radius: 10px;
+    border: black 5em;
     width: 300px;
     height: 250px;
 }

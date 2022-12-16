@@ -1,0 +1,10 @@
+.single-spot {
+    display: grid;
+}
+
+.singleImg {
+    border-radius: 10px;
+    border: black 5em;
+    width: 350px;
+    height: 300px;
+}

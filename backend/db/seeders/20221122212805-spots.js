@@ -21,8 +21,8 @@ module.exports = {
         country: 'United States of America',
         lat: 34.0286,
         lng: 117.8103,
-        name: 'Scranton',
-        description: 'A beautiful six-story office in the urban streets of Scranton',
+        name: 'Pixel Studio',
+        description: 'A beautiful pixelated studio to keep you cozy.',
         price: 450,
       },
       {
@@ -33,8 +33,8 @@ module.exports = {
         country: 'United States of America',
         lat: 34.0522,
         lng: 118.2437,
-        name: 'Nashua',
-        description: 'Chic office in downtown Nashua near famous museums and restaurants authentic to the city.',
+        name: '8 Bit Pad',
+        description: 'Chic pad that offers a good time with your friends.',
         price: 300,
       },
       {
@@ -45,8 +45,8 @@ module.exports = {
         country: 'United States of America',
         lat: 33.8704,
         lng: 117.9242,
-        name: 'Buffalo',
-        description: 'A dainty vintage office in the quiet neighborhoods of Buffalo.',
+        name: '5D Shack',
+        description: 'A dainty shack for a quick getaway.',
         price: 500,
       },
       {
@@ -57,8 +57,8 @@ module.exports = {
         country: 'United States of America',
         lat: 50.8704,
         lng: 120.9242,
-        name: 'Stamford',
-        description: 'A relaxing getaway by the calming nature of Conneticut.',
+        name: 'Virtual Abode',
+        description: 'A modern abode that is picture perfect for your social media needs!',
         price: 575,
       }
     ], {})
@@ -76,8 +76,8 @@ module.exports = {
           country: 'United States of America',
           lat: 34.0286,
           lng: 117.8103,
-          name: 'Scranton',
-          description: 'A beautiful six-story office in the urban streets of Scranton',
+          name: 'Pixel Studio',
+          description: 'A beautiful pixelated studio to keep you cozy.',
           price: 450,
         },
         {
@@ -88,8 +88,8 @@ module.exports = {
           country: 'United States of America',
           lat: 34.0522,
           lng: 118.2437,
-          name: 'Nashua',
-          description: 'Chic office in downtown Nashua near famous museums and restaurants authentic to the city.',
+          name: '8 Bit Pad',
+          description: 'Chic pad that offers a good time with your friends.',
           price: 300,
         },
         {
@@ -100,8 +100,8 @@ module.exports = {
           country: 'United States of America',
           lat: 33.8704,
           lng: 117.9242,
-          name: 'Buffalo',
-          description: 'A dainty vintage office in the quiet neighborhoods of Buffalo.',
+          name: '5D Shack',
+          description: 'A dainty shack for a quick getaway.',
           price: 500,
         },
         {
@@ -112,8 +112,8 @@ module.exports = {
           country: 'United States of America',
           lat: 50.8704,
           lng: 120.9242,
-          name: 'Stamford',
-          description: 'A relaxing getaway by the calming nature of Conneticut.',
+          name: 'Virtual Abode',
+          description: 'A modern abode that is picture perfect for your social media needs!',
           price: 575,
         }
       ]
