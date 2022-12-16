@@ -156,7 +156,9 @@ const CreateSpot = () => {
                     name="imageUrl"
                     required
                 />
-                {sessionUser && sessionUser.firstName !== 'Demo' ? <button className="submit" type="submit">Submit</button> : <p>Unable to create a spot if not logged in</p>}
+                {sessionUser && sessionUser.firstName !== 'Demo' ? <button className="submit" type="submit">Submit</button> : 
+                <div><button className="submit" disabled>Submit</button> 
+                <p>Must be signed up or logged in to create a spot.</p></div>}
             </form>
         </div>
     )

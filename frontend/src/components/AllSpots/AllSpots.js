@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getSpots } from '../../store/spotReducer';
 import './AllSpots.css'
+import star from './star.png'
 
 const AllSpots = () => {
     const spots = Object.values(useSelector(state => state.spots.allSpots));
@@ -14,7 +15,7 @@ const AllSpots = () => {
 
     return (
         <div>
-            <ul className='items'>
+            <ul className='spot-items'>
                 {spots.map(({ id, name, previewImage, state, city, avgRating, price }) => (
                     <li key={id}>
                         <div className='link'>
@@ -28,7 +29,7 @@ const AllSpots = () => {
                             </NavLink>
                         </div>
                         <div>
-                            {avgRating}
+                            {avgRating !== "No ratings" ? <div><img src={star} alt="Stars: "/> {avgRating}</div> : <div><img src={star} alt="Stars: "/> New</div> }
                         </div>
                         {`$${price}`}
                     </li>
