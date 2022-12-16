@@ -20,7 +20,6 @@ const SingleSpot = () => {
     const spotImages = currentState.spots.singleSpot.SpotImages
 
     //current user
-    const sessionUserId = currentState.session.user.id
 
     //current spot reviews
     const spotReviews = Object.values(currentState.reviews.spot)
@@ -58,48 +57,88 @@ const SingleSpot = () => {
 
     if (!spotImages) return null;
 
-    return (
-        <div className='single-spot'>
-            <h1>{name}</h1>
-            <div>
-                <span>{avgStarRating ? <div><img src={star} alt='Rating'/> {avgStarRating}</div> : <div> <img src={star} alt='Rating'/> New </div>}</span>
-                <span>{` ${city}, ${state}, ${country}`}</span>
-            </div>
-            <div>
-                {spotImages.map(image => (
-                    <img className="singleImg" key={id} src={image.url} alt={name} />
-                ))}
-            </div>
-            <div>
-                <span>{`$${price} night`}</span>
-                <p>{description}</p>
-            </div>
-            <div className="review-card">
-                <span>
-                    <h4>Reviews:</h4>
-                    {spotReviews.length ? spotReviews.map(({ id, review, stars, userId }) => (
-                        <div key={review}>
-                            <li key={id}>{review}
-                            Stars: {stars}
-                            {sessionUserId === userId ? <button onClick={deletedReview} to={`/spots/${spotId}`}>Delete Review</button> : null}
-                            </li>
-                        </div>
-                    ))
-                        : <p>No Reviews</p>}
-                </span>
-                <span>
-                    <CreateReview key={spotId} spotId={spotId}/>
-                </span>
-            </div>
-            <div>
-                <span>{sessionUserId === ownerId ? <div>
-                    <NavLink key={spotId} to={`/spots/${spotId}/edit`}>Edit</NavLink>
-                </div> : null}
-                </span>
-                <span>{sessionUserId === ownerId ? <NavLink onClick={deletedSpot} to='/spots'>Delete</NavLink> : null}</span>
-            </div>
-        </div >
-    )
+    if (currentState.session.user) {
+
+        const sessionUserId = currentState.session.user.id
+
+        return (
+            <div className='single-spot'>
+                <h1>{name}</h1>
+                <div>
+                    <span>{avgStarRating ? <div><img src={star} alt='Rating' /> {avgStarRating}</div> : <div> <img src={star} alt='Rating' /> New </div>}</span>
+                    <span>{` ${city}, ${state}, ${country}`}</span>
+                </div>
+                <div>
+                    {spotImages.map(image => (
+                        <img className="singleImg" key={id} src={image.url} alt={name} />
+                    ))}
+                </div>
+                <div>
+                    <span>{`$${price} night`}</span>
+                    <p>{description}</p>
+                </div>
+                <div className="review-card">
+                    <span>
+                        <h4>Reviews:</h4>
+                        {spotReviews.length ? spotReviews.map(({ id, review, stars, userId }) => (
+                            <div key={review}>
+                                <li key={id}>{review}
+                                    Stars: {stars}
+                                    {sessionUserId === userId ? <button onClick={deletedReview} to={`/spots/${spotId}`}>Delete Review</button> : null}
+                                </li>
+                            </div>
+                        ))
+                            : <p>No Reviews</p>}
+                    </span>
+                    <span>
+                        <CreateReview key={spotId} spotId={spotId} />
+                    </span>
+                </div>
+                <div>
+                    <span>{sessionUserId === ownerId ? <div>
+                        <NavLink key={spotId} to={`/spots/${spotId}/edit`}>Edit</NavLink>
+                    </div> : null}
+                    </span>
+                    <span>{sessionUserId === ownerId ? <NavLink onClick={deletedSpot} to='/spots'>Delete</NavLink> : null}</span>
+                </div>
+            </div >
+        )
+    } else {
+        return (
+            <div className='single-spot'>
+                <h1>{name}</h1>
+                <div>
+                    <span>{avgStarRating ? <div><img src={star} alt='Rating' /> {avgStarRating}</div> : <div> <img src={star} alt='Rating' /> New </div>}</span>
+                    <span>{` ${city}, ${state}, ${country}`}</span>
+                </div>
+                <div>
+                    {spotImages.map(image => (
+                        <img className="singleImg" key={id} src={image.url} alt={name} />
+                    ))}
+                </div>
+                <div>
+                    <span>{`$${price} night`}</span>
+                    <p>{description}</p>
+                </div>
+                <div className="review-card">
+                    <span>
+                        <h4>Reviews:</h4>
+                        {spotReviews.length ? spotReviews.map(({ id, review, stars, userId }) => (
+                            <div key={review}>
+                                <li key={id}>
+                                    {review}
+                                    Stars: {stars}
+                                </li>
+                            </div>
+                        ))
+                            : <p>No Reviews</p>}
+                    </span>
+                    <span>
+                        <CreateReview key={spotId} spotId={spotId} />
+                    </span>
+                </div>
+            </div >
+    }
 }
 
 export default SingleSpot
