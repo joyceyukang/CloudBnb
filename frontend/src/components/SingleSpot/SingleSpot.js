@@ -19,14 +19,11 @@ const SingleSpot = () => {
     const { id, name, state, city, country, description, price, avgStarRating, ownerId } = currentState.spots.singleSpot
     const spotImages = currentState.spots.singleSpot.SpotImages
 
-    //current user
-
     //current spot reviews
     const spotReviews = Object.values(currentState.reviews.spot)
 
 
     // console.log(spotReviews)
-
     // console.log(spot)
     // console.log(currentState.spots.singleSpot)
 
@@ -36,30 +33,33 @@ const SingleSpot = () => {
     }, [dispatch, spotId])
 
 
-    const deletedSpot = (e) => {
-        e.preventDefault()
-
-        dispatch(deleteSpot(spotId)).then(
-            history.push('/')
-        )
-    }
-
-    const deletedReview = (e) => {
-
-        const review = spotReviews.find(spot => spot.userId === sessionUserId)
-
-        e.preventDefault()
-
-        dispatch(deleteReview(review.id)).then(
-            history.push(`/spots/${spotId}`)
-        )
-    }
 
     if (!spotImages) return null;
 
     if (currentState.session.user) {
-
+        //current user
         const sessionUserId = currentState.session.user.id
+
+        //delete a spot
+        const deletedSpot = (e) => {
+            e.preventDefault()
+
+            dispatch(deleteSpot(spotId)).then(
+                history.push('/')
+            )
+        }
+
+        //delete a review
+        const deletedReview = (e) => {
+
+            const review = spotReviews.find(spot => spot.userId === sessionUserId)
+
+            e.preventDefault()
+
+            dispatch(deleteReview(review.id)).then(
+                history.push(`/spots/${spotId}`)
+            )
+        }
 
         return (
             <div className='single-spot'>
@@ -125,19 +125,16 @@ const SingleSpot = () => {
                         <h4>Reviews:</h4>
                         {spotReviews.length ? spotReviews.map(({ id, review, stars, userId }) => (
                             <div key={review}>
-                                <li key={id}>
-                                    {review}
+                                <li key={id}>{review}
                                     Stars: {stars}
                                 </li>
                             </div>
                         ))
                             : <p>No Reviews</p>}
                     </span>
-                    <span>
-                        <CreateReview key={spotId} spotId={spotId} />
-                    </span>
                 </div>
             </div >
+        )
     }
 }
 

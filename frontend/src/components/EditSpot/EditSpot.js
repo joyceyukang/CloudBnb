@@ -20,7 +20,6 @@ const EditSpot = () => {
     const [name, setName] = useState(spot.name);
     const [description, setDescription] = useState(spot.description);
     const [price, setPrice] = useState(spot.price);
-    const [imageUrl, setImageUrl] = useState('');
 
     const updateAddress = (e) => setAddress(e.target.value)
     const updateCity = (e) => setCity(e.target.value)
@@ -29,7 +28,6 @@ const EditSpot = () => {
     const updateName = (e) => setName(e.target.value)
     const updateDescription = (e) => setDescription(e.target.value)
     const updatePrice = (e) => setPrice(e.target.value)
-    const updateImageUrl = (e) => setImageUrl(e.target.value)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
