@@ -2,7 +2,6 @@ import { csrfFetch } from '../store/csrf'
 
 const LOAD_REVIEWS = 'spots/LOAD_REVIEWS';
 const ADD_REVIEW = 'spots/ADD_REVIEW';
-const EDIT_REVIEW = 'spots/EDIT_REVIEW';
 const REMOVE_REVIEW = 'spots/REMOVE_REVIEW';
 
 const loadReviews = (spotList, userList) => ({
