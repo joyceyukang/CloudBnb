@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { spotDetails, updateSpot } from '../../store/spotReducer';
 import { useParams, useHistory } from 'react-router-dom';
+import './EditSpot.css'
 
 //fix refresh on edit page
 
@@ -22,6 +23,8 @@ const EditSpot = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
 
     //restore previous data
     useEffect(() => {
@@ -36,94 +39,143 @@ const EditSpot = () => {
         })
     }, [dispatch, spotId])
     
-    const updateAddress = (e) => setAddress(e.target.value)
-    const updateCity = (e) => setCity(e.target.value)
-    const updateState = (e) => setState(e.target.value)
-    const updateCountry = (e) => setCountry(e.target.value)
-    const updateName = (e) => setName(e.target.value)
-    const updateDescription = (e) => setDescription(e.target.value)
-    const updatePrice = (e) => setPrice(e.target.value)
+    const payload = {
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const payload = {
-            address,
-            city,
-            state,
-            country,
-            lat,
-            lng,
-            name,
-            description,
-            price,
+        setFormErrors(validate(payload))
+        setIsSubmit(true)
+
+        // await dispatch(updateSpot(payload, spotId))
+
+        // history.push(`/spots/${spotId}`)
+    }
+
+    useEffect(() => {
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+            dispatch(updateSpot(payload, spotId)).then(
+                    history.push(`/spots/${spotId}`)
+                )
+        }
+    }, [formErrors, dispatch])
+
+    const validate = (values) => {
+        const errors = {};
+
+        // console.log(values)
+
+        if (!values.address) {
+            errors.address = "Address is required."
+        }
+        if (!values.city) {
+            errors.city = "City is required."
+        }
+        if (!values.state) {
+            errors.state = "State is required."
+        }
+        if (!values.country) {
+            errors.country = "Country is required."
+        }
+        if (!values.name) {
+            errors.name = "Name is required."
+        }
+        if (!values.description) {
+            errors.description = "Description is required."
+        }
+        if (!values.price) {
+            errors.price = "Price is required."
+        } else if (values.price <= 0) {
+            errors.price = "Price must be more than $0"
         }
 
-        await dispatch(updateSpot(payload, spotId))
-
-        history.push(`/spots/${spotId}`)
+        return errors;
     }
 
     return (
         <div className="inputBox">
             <h1>Edit Spot</h1>
-            <form onSubmit={handleSubmit}>
+            <form className="create-input" onSubmit={handleSubmit}>
+            <h5>Address</h5>
                 <input
                     type="text"
-                    onChange={updateAddress}
+                    onChange={(e) => setAddress(e.target.value)}
                     value={address}
                     placeholder="Address"
                     name="address"
-                    required
+                // required
                 />
+                <p>{formErrors.address}</p>
+                <h5>City</h5>
                 <input
                     type="text"
-                    onChange={updateCity}
+                    onChange={(e) => setCity(e.target.value)}
                     value={city}
                     placeholder="City"
                     name="city"
-                    required
+                // required
                 />
+                <p>{formErrors.city}</p>
+                <h5>State</h5>
                 <input
                     type="text"
-                    onChange={updateState}
+                    onChange={(e) => setState(e.target.value)}
                     value={state}
                     placeholder="State"
                     name="state"
-                    required
+                // required
                 />
+                <p>{formErrors.state}</p>
+                <h5>Country</h5>
                 <input
                     type="text"
-                    onChange={updateCountry}
+                    onChange={(e) => setCountry(e.target.value)}
                     value={country}
                     placeholder="Country"
                     name="country"
-                    required
+                // required
                 />
+                <p>{formErrors.country}</p>
+                <h5>Name</h5>
                 <input
                     type="text"
-                    onChange={updateName}
+                    onChange={(e) => setName(e.target.value)}
                     value={name}
                     placeholder="Name"
                     name="name"
-                    required
+                // required
                 />
+                <p>{formErrors.name}</p>
+                <h5>Description</h5>
                 <textarea
                     value={description}
-                    onChange={updateDescription}
+                    onChange={(e) => setDescription(e.target.value)}
                     name="description"
                     placeholder="Description"
                     rows="10"
-                    required
+                // required
                 ></textarea>
+                <p>{formErrors.description}</p>
+                <h5>Price</h5>
                 <input
-                    type="text"
-                    onChange={updatePrice}
+                    type="number"
+                    onChange={(e) => setPrice(e.target.value)}
                     value={price}
                     placeholder="Price per night"
                     name="price"
-                    required
+                // required
                 />
+                <p>{formErrors.price}</p>
                 <button className="submit" type="update">Update</button>
             </form>
         </div>
