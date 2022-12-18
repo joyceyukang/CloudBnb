@@ -36,7 +36,7 @@
     font-family: Arial, Helvetica, sans-serif;
     justify-content: space-between;
     list-style: none;
-    padding-right: 40px;
+    padding: 0px 50px;
 }
 
 .profile-dropdown {

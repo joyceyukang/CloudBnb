@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { spotDetails, updateSpot } from '../../store/spotReducer';
 import { useParams, useHistory } from 'react-router-dom';
@@ -9,25 +9,33 @@ const EditSpot = () => {
     const dispatch = useDispatch()
     const { spotId } = useParams()
 
-    useEffect(() => {
-        dispatch(spotDetails(spotId))
-    }, [dispatch])
-    
-    const spot = useSelector(state => state.spots.singleSpot)
     const history = useHistory()
-
+    
     // console.log(spot)
     
-    const [address, setAddress] = useState(spot.address);
-    const [city, setCity] = useState(spot.city);
-    const [state, setState] = useState(spot.state);
-    const [country, setCountry] = useState(spot.country);
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [country, setCountry] = useState('');
     const [lat, setLat] = useState(50);
     const [lng, setLng] = useState(50);
-    const [name, setName] = useState(spot.name);
-    const [description, setDescription] = useState(spot.description);
-    const [price, setPrice] = useState(spot.price);
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
 
+    //restore previous data
+    useEffect(() => {
+        dispatch(spotDetails(spotId)).then((res) => {
+            setAddress(res.address)
+            setCity(res.city)
+            setState(res.state)
+            setCountry(res.country)
+            setName(res.name)
+            setDescription(res.description)
+            setPrice(res.price)
+        })
+    }, [dispatch, spotId])
+    
     const updateAddress = (e) => setAddress(e.target.value)
     const updateCity = (e) => setCity(e.target.value)
     const updateState = (e) => setState(e.target.value)

@@ -40,6 +40,7 @@ export const getSpots = () => async dispatch => {
         const list = await response.json();
         // console.log("LIST:   ",list)
         dispatch(loadSpots(list))
+        return list;
     }
 }
 
@@ -51,6 +52,7 @@ export const spotDetails = (spotId) => async dispatch => {
         const spot = await response.json();
         // console.log(spot)
         dispatch(singleSpot(spot))
+        return spot;
     }
 }
 
@@ -94,6 +96,7 @@ export const updateSpot = (spot, id) => async dispatch => {
     if(response.ok) {
         const edit = await response.json()
         dispatch(editSpot(edit))
+        return edit
     }
 }
 
