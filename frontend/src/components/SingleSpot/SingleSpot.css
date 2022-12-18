@@ -1,5 +1,9 @@
 .single-spot {
-    display: grid;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
 }
 
 .singleImg {

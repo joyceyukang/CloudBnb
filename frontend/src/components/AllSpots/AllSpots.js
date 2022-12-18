@@ -17,21 +17,23 @@ const AllSpots = () => {
         <div>
             <ul className='spot-items'>
                 {spots.map(({ id, name, previewImage, state, city, avgRating, price }) => (
-                    <li key={id}>
-                        <div className='link'>
+                    <li className='spot-children' key={id}>
+                        <div className='spot-card'>
                             <NavLink key={name} to={`/spots/${id}`}>
                                 <div>
                                     <img className='spotImages'
                                         src={previewImage}
                                         alt={name} />
                                 </div>
-                                {`${city}, ${state}`}
                             </NavLink>
+                            <div className="spot-info">
+                                <NavLink key={name} to={`/spots/${id}`}>
+                                    {`${city}, ${state}`}
+                                </NavLink>
+                                {avgRating !== "No ratings" ? <div><img src={star} alt="Stars: " /> {avgRating}</div> : <div><img src={star} alt="Stars: " /> New</div>}
+                            </div>
+                            {`$${price} night`}
                         </div>
-                        <div>
-                            {avgRating !== "No ratings" ? <div><img src={star} alt="Stars: "/> {avgRating}</div> : <div><img src={star} alt="Stars: "/> New</div> }
-                        </div>
-                        {`$${price}`}
                     </li>
                 ))}
             </ul>

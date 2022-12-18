@@ -40,6 +40,7 @@ export const getSpots = () => async dispatch => {
         const list = await response.json();
         // console.log("LIST:   ",list)
         dispatch(loadSpots(list))
+        return list;
     }
 }
 
@@ -51,21 +52,22 @@ export const spotDetails = (spotId) => async dispatch => {
         const spot = await response.json();
         // console.log(spot)
         dispatch(singleSpot(spot))
+        return spot;
     }
 }
 
 //create spot
 export const createSpot = (spot, url) => async dispatch => {
-    // console.log(spot)
+    console.log(spot)
     const response = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(spot)
     })
-
+    
     if (response.ok) {
         const newSpot = await response.json();
-
+        console.log()
         const spotImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -73,6 +75,7 @@ export const createSpot = (spot, url) => async dispatch => {
                 url: url,
                 preview: true,
             })
+    
         })
         if(spotImage.ok) {
             const newImage = await spotImage.json()
@@ -94,6 +97,7 @@ export const updateSpot = (spot, id) => async dispatch => {
     if(response.ok) {
         const edit = await response.json()
         dispatch(editSpot(edit))
+        return edit
     }
 }
 
@@ -121,7 +125,7 @@ const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS:
             newState = { ...state };
-            newAllSpots = {}
+            newAllSpots = {...state.allSpots}
             action.list.Spots.forEach(spot => {
                 newAllSpots[spot.id] = spot;
             })

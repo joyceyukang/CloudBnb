@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createReview } from '../../store/reviewReducer';
 import './CreateReview.css'
 
@@ -21,20 +21,44 @@ const CreateReview = ({ spotId }) => {
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
-    // const [formErrors, setFormErrors] = useState({});
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
+
+    const payload = {
+        review,
+        stars
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const payload = {
-            review,
-            stars
+        setFormErrors(validate(payload))
+        setIsSubmit(true)
+    }
+
+    useEffect(() => {
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+            dispatch(createReview(payload, spotId))
+
+            reset();
+        }
+    }, [formErrors, dispatch])
+
+    const validate = (values) => {
+        const errors = {};
+
+        // console.log(values)
+
+        if (!values.review) {
+            errors.review = "Review is required."
+        }
+        if (!values.stars) {
+            errors.stars = "Star rating is required."
         }
 
-        await dispatch(createReview(payload, spotId))
-
-        reset();
+        return errors;
     }
+
 
     const reset = () => {
         setReview('');
@@ -43,7 +67,7 @@ const CreateReview = ({ spotId }) => {
 
     return (
         <div className="inputBox">
-            <form onSubmit={handleSubmit}>
+            <form className="create-input"onSubmit={handleSubmit}>
                 <textarea
                     value={review}
                     onChange={(e) => setReview(e.target.value)}
@@ -51,6 +75,7 @@ const CreateReview = ({ spotId }) => {
                     placeholder="Add a review..."
                     rows="5"
                 ></textarea>
+                <p>{formErrors.review}</p>
                 <input
                     type="number"
                     onChange={(e) => setStars(e.target.value)}
@@ -60,7 +85,8 @@ const CreateReview = ({ spotId }) => {
                     min="1"
                     max="5"
                 />
-               <button className="submitReview" type="submit" disabled={!!userReview || sessionUserId === ownerId}>Submit</button>
+                <p>{formErrors.stars}</p>
+                <button className="submit" type="submit" disabled={!!userReview || sessionUserId === ownerId}>Submit</button>
             </form>
         </div>
     )
