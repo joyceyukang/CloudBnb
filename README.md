@@ -18,4 +18,4 @@ __This project is built with:__
 ## Landing Page
 This is where the user will access login, sign up, and demo user abilities.
 
-landingpage.png
+![landingpage.png](https://github.com/joyceyukang/Mod4-project/blob/6056ca386258defc27ec298afa7a7937e254a57d/landingpage.png)
