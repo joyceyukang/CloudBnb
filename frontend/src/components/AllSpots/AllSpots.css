@@ -40,8 +40,11 @@ a:hover {
     display: flex;
     list-style: none;
     flex-wrap: wrap;
-    padding: 0px 24px;
-    justify-content: space-evenly;
+    margin: 0 62px;
+    object-fit: ;
+    padding: 0;
+    /* width: 95%; */
+    /* justify-content: space-between; */
 }
 
 
