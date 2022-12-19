@@ -22,7 +22,10 @@ const SingleSpot = () => {
     //current spot reviews
     const spotReviews = Object.values(currentState.reviews.spot)
 
-    //current user
+    console.log(spotReviews)
+    console.log("HELLO  ", spotReviews[spotReviews.length - 1])
+
+    let reviewUser;
 
     // console.log(spotReviews)
     // console.log(spot)
@@ -31,7 +34,6 @@ const SingleSpot = () => {
     useEffect(() => {
         dispatch(spotDetails(spotId))
         dispatch(getSpotReviews(spotId))
-        dispatch(getUserReviews())
     }, [dispatch, spotId])
 
 
@@ -40,10 +42,9 @@ const SingleSpot = () => {
     if (currentState.session.user) {
         //current user
         const sessionUserId = currentState.session.user.id
-
         const owner = currentState.spots.singleSpot.Owner.firstName
 
-        // console.log(owner)
+        console.log(owner)
 
         //delete a spot
         const deletedSpot = (e) => {
@@ -65,6 +66,7 @@ const SingleSpot = () => {
                 history.push(`/spots/${spotId}`)
             )
         }
+
 
         return (
             <div className='single-spot'>
@@ -106,6 +108,7 @@ const SingleSpot = () => {
                         ))
                             : <p>No Reviews</p>}
                     </span>
+                    {reviewUser}
                     <span>
                         <CreateReview key={spotId} spotId={spotId} />
                     </span>

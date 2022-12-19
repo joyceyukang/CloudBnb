@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { createReview } from '../../store/reviewReducer';
+import { createReview, getSpotReviews } from '../../store/reviewReducer';
 import './CreateReview.css'
 
 
@@ -21,8 +22,8 @@ const CreateReview = ({ spotId }) => {
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
-    const [formErrors, setFormErrors] = useState({});
-    const [isSubmit, setIsSubmit] = useState(false);
+    // const [formErrors, setFormErrors] = useState({});
+    // const [isSubmit, setIsSubmit] = useState(false);
 
     const payload = {
         review,
@@ -32,32 +33,34 @@ const CreateReview = ({ spotId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setFormErrors(validate(payload))
-        setIsSubmit(true)
+        // setFormErrors(validate(payload))
+        // setIsSubmit(true)
+
+        await dispatch(createReview(payload, spotId))
+        await dispatch(getSpotReviews(spotId))
+    
+        reset();
     }
 
-    useEffect(() => {
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
-            dispatch(createReview(payload, spotId))
+    // useEffect(() => {
+    //     if (Object.keys(formErrors).length === 0 && isSubmit) {
+    //     }
+    // }, [formErrors, dispatch])
 
-            reset();
-        }
-    }, [formErrors, dispatch])
+    // const validate = (values) => {
+    //     const errors = {};
 
-    const validate = (values) => {
-        const errors = {};
+    //     // console.log(values)
 
-        // console.log(values)
+    //     if (!values.review) {
+    //         errors.review = "Review is required."
+    //     }
+    //     if (!values.stars) {
+    //         errors.stars = "Star rating is required."
+    //     }
 
-        if (!values.review) {
-            errors.review = "Review is required."
-        }
-        if (!values.stars) {
-            errors.stars = "Star rating is required."
-        }
-
-        return errors;
-    }
+    //     return errors;
+    // }
 
 
     const reset = () => {
@@ -77,8 +80,9 @@ const CreateReview = ({ spotId }) => {
                         name="review"
                         placeholder="Add a review..."
                         rows="5"
+                        required
                     ></textarea>
-                    <p>{formErrors.review}</p>
+                    {/* <p>{formErrors.review}</p> */}
                 </div>
                 <div className='input-text'>
                     <h5 className='title'>Stars</h5>
@@ -90,8 +94,9 @@ const CreateReview = ({ spotId }) => {
                         name="star"
                         min="1"
                         max="5"
+                        required
                     />
-                    <p>{formErrors.stars}</p>
+                    {/* <p>{formErrors.stars}</p> */}
                 </div>
                 <div className='submit-error'>
                     <button className="submit-review" type="submit" disabled={!!userReview || sessionUserId === ownerId}>Submit</button>
