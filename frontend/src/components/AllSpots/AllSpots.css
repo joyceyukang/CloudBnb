@@ -29,6 +29,8 @@ a:hover {
     padding: .5rem;
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
 }
 
 .spot-children {
@@ -39,20 +41,17 @@ a:hover {
 }
 
 .spot-items {
-    display: grid;
-    /* grid-template-columns: repeat(6, 1fr); */
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-    grid-auto-rows: 1fr;
-    grid-gap: 0.5rem;
+    display: flex;
     list-style: none;
-    justify-items: center;
-    padding: 0px 40px;
+    flex-wrap: wrap;
+    padding: 0px 24px;
+    justify-content: space-between;
 }
 
 
 .spotImages {
     object-fit: cover;
-    width: 225px;
-    height: 193px;
+    width: 275px;
+    height: 230px;
     border-radius: 10px;
 }

@@ -1,0 +1,16 @@
+.inputBox-review {
+    padding: 5px 0px;
+}
+
+.create-input-review {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    gap: 0.2em;
+  }
+
+  .review-star {
+    width: 35px;
+    text-align: center;
+  }

@@ -66,8 +66,9 @@ const CreateReview = ({ spotId }) => {
     }
 
     return (
-        <div className="inputBox">
-            <form className="create-input"onSubmit={handleSubmit}>
+        <div className="inputBox-review">
+            <form className="create-input-review"onSubmit={handleSubmit}>
+                <h5>Create a Review</h5>
                 <textarea
                     value={review}
                     onChange={(e) => setReview(e.target.value)}
@@ -76,17 +77,18 @@ const CreateReview = ({ spotId }) => {
                     rows="5"
                 ></textarea>
                 <p>{formErrors.review}</p>
-                <input
+                <h5>Stars</h5>
+                <input className='review-star'
                     type="number"
                     onChange={(e) => setStars(e.target.value)}
                     value={stars}
-                    placeholder="Stars"
+                    placeholder="1"
                     name="star"
                     min="1"
                     max="5"
                 />
                 <p>{formErrors.stars}</p>
-                <button className="submit" type="submit" disabled={!!userReview || sessionUserId === ownerId}>Submit</button>
+                <button className="submit-review" type="submit" disabled={!!userReview || sessionUserId === ownerId}>Submit</button>
             </form>
         </div>
     )

@@ -50,6 +50,12 @@ input {
   margin-top: 10px;
 }
 
+.submit-review {
+  display: flex;
+  justify-content: space-around;
+  width: auto;
+}
+
 textarea {
   /* margin: 10px 0px; */
   padding: 5px;

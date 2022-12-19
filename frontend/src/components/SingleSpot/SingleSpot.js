@@ -22,6 +22,8 @@ const SingleSpot = () => {
     //current spot reviews
     const spotReviews = Object.values(currentState.reviews.spot)
 
+    //current user
+
     // console.log(spotReviews)
     // console.log(spot)
     // console.log(currentState.spots.singleSpot)
@@ -33,12 +35,15 @@ const SingleSpot = () => {
     }, [dispatch, spotId])
 
 
-
     if (!spotImages) return null;
 
     if (currentState.session.user) {
         //current user
         const sessionUserId = currentState.session.user.id
+
+        const owner = currentState.spots.singleSpot.Owner.firstName
+
+        // console.log(owner)
 
         //delete a spot
         const deletedSpot = (e) => {
@@ -63,19 +68,24 @@ const SingleSpot = () => {
 
         return (
             <div className='single-spot'>
-                <h1>{name}</h1>
+                <h1>{description}</h1>
                 <div>
-                    <span>{avgStarRating ? <div><img src={star} alt='Rating' /> {avgStarRating}</div> : <div> <img src={star} alt='Rating' /> New </div>}</span>
-                    <span>{` ${city}, ${state}, ${country}`}</span>
+                    <span className="rating-info">{avgStarRating ? <div><img src={star} alt='Rating' /> {avgStarRating}</div> : <div> <img src={star} alt='Rating' /> New </div>}
+                        {` ${city}, ${state}, ${country}`}
+                    </span>
                 </div>
                 <div>
                     {spotImages.map(image => (
                         <img className="singleImg" key={id} src={image.url} alt={name} />
                     ))}
                 </div>
-                <div>
-                    <span>{`$${price} night`}</span>
-                    <p>{description}</p>
+                <div className='owner-price'>
+                    <span>
+                        Enitre home hosted by {owner}
+                    </span>
+                    <span>
+                        {`$${price} night`}
+                    </span>
                 </div>
                 <div className="review-card">
                     <span>
@@ -109,8 +119,10 @@ const SingleSpot = () => {
         return (
             <div className='single-spot'>
                 <h1>{name}</h1>
-                <div>
-                    <span>{avgStarRating ? <div><img src={star} alt='Rating' /> {avgStarRating}</div> : <div> <img src={star} alt='Rating' /> New </div>}</span>
+                <div className="rating-info">
+                    <span>
+                        {avgStarRating ? <div><i class="fa-sharp fa-solid fa-star"></i> {avgStarRating}</div> : <div> <i class="fa-sharp fa-solid fa-star"></i> New </div>}
+                    </span>
                     <span>{` ${city}, ${state}, ${country}`}</span>
                 </div>
                 <div>

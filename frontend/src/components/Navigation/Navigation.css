@@ -5,9 +5,10 @@
 }
 
 .bar-right {
-    display: flex; 
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
-    gap: 20px
+    gap: 20px;
 }
 
 .create {
@@ -24,6 +25,31 @@
     display: none
 }
 
+.loginSign {
+    padding: 0.25rem;
+}
+
+.loginSign-button {
+    width: 80px;
+    padding: 0.25rem;
+    background-color: white;
+    border-radius: 0.25rem;
+    border: none;
+}
+
+.loginSign-button:hover {
+    background: salmon;
+    transition: background 500ms ease-in-out;
+}
+
+.loginSign-button1 {
+    background: salmon;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    color: white;
+}
+
 .logo {
     align-items: center;
     justify-content: center;
@@ -36,9 +62,41 @@
     font-family: Arial, Helvetica, sans-serif;
     justify-content: space-between;
     list-style: none;
-    padding: 0px 50px;
+    padding: 0px 40px;
+}
+
+.profile-button {
+    background-color: rgba(250, 128, 114);
+    border: white;
+    border-radius: .25rem;
+    padding: 5px 0;
+    width: 50px;
+}
+
+.profile-button i {
+    color: white;
+    padding: 0 0.25rem;
 }
 
 .profile-dropdown {
-    list-style: none;
+    position: relative;
 }
+
+.dropdown-menu {
+    align-items: flex-end;
+    align-content: flex-end;
+    background-color: white;
+    border-radius: .25rem;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.1);
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    gap: 0.25rem;
+    height: auto;
+    list-style: none;
+    padding: 0.75rem;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.25rem);
+}
+
