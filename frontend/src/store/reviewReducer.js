@@ -58,7 +58,7 @@ export const createReview = (review, spotId) => async dispatch => {
 
     if (response.ok) {
         const newReview = await response.json();
-        // console.log("NEW REVIEW: ", newReview)
+        console.log("NEW REVIEW: ", newReview)
         dispatch(addReview(newReview))
         return newReview
     }
@@ -109,18 +109,18 @@ const reviewReducer = (state = initialState, action) => {
             newState.user = allUserReviews
 
             return newState;
-        case ADD_REVIEW:
-            newState = { ...state };
-            allUserReviews = newState.user
-            allSpotReviews = newState.spot
+        // case ADD_REVIEW:
+        //     newState = { ...state };
+        //     allUserReviews = {...state.user}
+        //     allSpotReviews = {...state.spot}
 
-            allUserReviews[action.review.id] = action.review
-            allSpotReviews[action.review.id] = action.review
+        //     allUserReviews[action.review.id] = action.review
+        //     allSpotReviews[action.review.id] = action.review
 
-            newState.user = allUserReviews
-            newState.spot = allSpotReviews
-            // console.log("ADDING REVIEW ", newState)
-            return newState;
+        //     newState.user = allUserReviews
+        //     newState.spot = allSpotReviews
+        //     // console.log("ADDING REVIEW ", newState)
+        //     return newState;
         case REMOVE_REVIEW:
             newState = { ...state };
 
