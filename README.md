@@ -18,3 +18,4 @@ __This project is built with:__
 ## Landing Page
 This is where the user will access login, sign up, and demo user abilities.
 
+landingpage.png
