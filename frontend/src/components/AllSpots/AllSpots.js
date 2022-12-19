@@ -30,7 +30,7 @@ const AllSpots = () => {
                                 <NavLink key={name} to={`/spots/${id}`}>
                                     {`${city}, ${state}`}
                                 </NavLink>
-                                {avgRating !== "No ratings" ? <div><img src={star} alt="Stars: " /> {avgRating}</div> : <div><img src={star} alt="Stars: " /> New</div>}
+                                {avgRating !== "No ratings" ? <div><i class="fa-sharp fa-solid fa-star"></i> {avgRating}</div> : <div><i class="fa-sharp fa-solid fa-star"></i> New</div>}
                             </div>
                             {`$${price} night`}
                         </div>

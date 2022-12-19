@@ -1,14 +1,30 @@
 .single-spot {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
-    justify-content: center;
+    justify-content: flex-start;
+    margin: 0 25em;
 }
 
 .singleImg {
     border-radius: 10px;
     border: black 5em;
-    width: 350px;
-    height: 300px;
+    width: 400px;
+    height: 350px;
+    padding: 15px 115px;
+}
+
+.rating-info {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+}
+
+.owner-price {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: bold;
 }
