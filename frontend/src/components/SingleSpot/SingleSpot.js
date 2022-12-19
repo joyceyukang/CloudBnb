@@ -128,21 +128,17 @@ const SingleSpot = () => {
     else {
         return (
             <div className='single-spot'>
-                <h1>{name}</h1>
-                <div className="rating-info">
-                    <span>
-                        {avgStarRating ? <div><i class="fa-sharp fa-solid fa-star"></i> {avgStarRating}</div> : <div> <i class="fa-sharp fa-solid fa-star"></i> New </div>}
-                    </span>
-                    <span>{` ${city}, ${state}, ${country}`}</span>
-                </div>
+                <h1>{description}</h1>
                 <div>
+                    <span className="rating-info">
+                        {avgStarRating ? <div><i class="fa-sharp fa-solid fa-star"></i> {avgStarRating}</div> : <div> <i class="fa-sharp fa-solid fa-star"></i> New </div>}
+                        {` ${city}, ${state}, ${country}`}
+                    </span>
+                </div>
+                <div className='single-spot-image'>
                     {spotImages.map(image => (
                         <img className="singleImg" key={id} src={image.url} alt={name} />
                     ))}
-                </div>
-                <div>
-                    <span>{`$${price} night`}</span>
-                    <p>{description}</p>
                 </div>
                 <div className="review-card">
                     <h4>Reviews:</h4>
