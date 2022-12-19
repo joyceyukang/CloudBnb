@@ -29,9 +29,15 @@
     align-items: flex-start;
     display: flex;
     flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     justify-content: flex-start;
     margin: 0 25em;
+}
+
+.single-spot-image {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
 
 .singleImg {
@@ -39,7 +45,7 @@
     border: black 5em;
     width: 400px;
     height: 350px;
-    padding: 15px 115px;
+    margin: 20px 0;
 }
 
 .rating-info {

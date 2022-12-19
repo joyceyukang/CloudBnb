@@ -71,6 +71,7 @@ const CreateReview = ({ spotId }) => {
                 <div className='input-text'>
                     <h5 className='title'>Create a Review</h5>
                     <textarea
+                        type="text"
                         value={review}
                         onChange={(e) => setReview(e.target.value)}
                         name="review"
@@ -92,7 +93,10 @@ const CreateReview = ({ spotId }) => {
                     />
                     <p>{formErrors.stars}</p>
                 </div>
-                <button className="submit-review" type="submit" disabled={!!userReview || sessionUserId === ownerId}>Submit</button>
+                <div className='submit-error'>
+                    <button className="submit-review" type="submit" disabled={!!userReview || sessionUserId === ownerId}>Submit</button>
+                    {!!userReview || sessionUserId === ownerId ? <p>*Cannot submit review if owner or already submitted*</p> : null}
+                </div>
             </form>
         </div>
     )

@@ -74,7 +74,7 @@ const SingleSpot = () => {
                         {` ${city}, ${state}, ${country}`}
                     </span>
                 </div>
-                <div>
+                <div className='single-spot-image'>
                     {spotImages.map(image => (
                         <img className="singleImg" key={id} src={image.url} alt={name} />
                     ))}
