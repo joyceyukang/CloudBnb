@@ -1,3 +1,30 @@
+.delete-review-button {
+    margin: 5px 0px;
+    width: 10%;
+    color: #FFF;
+    background-color: salmon;
+    border-radius: 5px;
+    border: 1px solid salmon;
+}
+
+.edit-delete-spot {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin: 40px 0;
+}
+
+.edit-spot {
+    border: salmon solid;
+    padding: 5px;
+}
+
+.delete-spot {
+    border: salmon solid;
+    padding: 5px;
+}
+
 .single-spot {
     align-items: flex-start;
     display: flex;
@@ -22,9 +49,32 @@
     align-items: center;
 }
 
+.review-title {
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
 .owner-price {
     display: flex;
     justify-content: space-between;
     width: 100%;
     font-weight: bold;
+}
+
+.posted-reviews {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-review-name {
+    font-weight: bold;
+}
+
+.review-bundle {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: rgb(250, 128, 114, 0.1);
+    border-radius: 0.25em;
+    width: auto;
 }

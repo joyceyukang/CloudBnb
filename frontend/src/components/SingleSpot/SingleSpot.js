@@ -88,13 +88,19 @@ const SingleSpot = () => {
                     </span>
                 </div>
                 <div className="review-card">
+                    <h4 className='review-title'>Reviews:</h4>
                     <span>
-                        <h4>Reviews:</h4>
-                        {spotReviews.length ? spotReviews.map(({ id, review, stars, userId }) => (
-                            <div key={review}>
-                                <li key={id}>{review}
-                                    Stars: {stars}
-                                    {sessionUserId === userId ? <button onClick={deletedReview} to={`/spots/${spotId}`}>Delete Review</button> : null}
+                        {spotReviews.length ? spotReviews.map(({ id, review, stars, userId, User }) => (
+                            <div className='review-bundle' key={review}>
+                                <li className='posted-reviews' key={id}>
+                                    <span className='user-review-name'>
+                                        {User.firstName} {User.lastName}
+                                    </span>
+                                    {review}
+                                    <span>
+                                        <i class="fa-sharp fa-solid fa-star"></i> {stars}
+                                    </span>
+                                    {sessionUserId === userId ? <button className='delete-review-button' onClick={deletedReview} to={`/spots/${spotId}`}>Delete</button> : null}
                                 </li>
                             </div>
                         ))
@@ -104,12 +110,13 @@ const SingleSpot = () => {
                         <CreateReview key={spotId} spotId={spotId} />
                     </span>
                 </div>
-                <div>
-                    <span>{sessionUserId === ownerId ? <div>
-                        <NavLink key={spotId} to={`/spots/${spotId}/edit`}>Edit</NavLink>
-                    </div> : null}
+                <div className='edit-delete-spot'>
+                    <span>{sessionUserId === ownerId ?
+                        <div>
+                            <NavLink className='edit-spot' key={spotId} to={`/spots/${spotId}/edit`}>Edit Spot</NavLink>
+                        </div> : null}
                     </span>
-                    <span>{sessionUserId === ownerId ? <NavLink onClick={deletedSpot} to='/spots'>Delete</NavLink> : null}</span>
+                    <span>{sessionUserId === ownerId ? <NavLink className='delete-spot' onClick={deletedSpot} to='/spots'>Delete Spot</NavLink> : null}</span>
                 </div>
             </div >
         )
@@ -135,12 +142,18 @@ const SingleSpot = () => {
                     <p>{description}</p>
                 </div>
                 <div className="review-card">
+                    <h4>Reviews:</h4>
                     <span>
-                        <h4>Reviews:</h4>
-                        {spotReviews.length ? spotReviews.map(({ id, review, stars, userId }) => (
-                            <div key={review}>
-                                <li key={id}>{review}
-                                    Stars: {stars}
+                        {spotReviews.length ? spotReviews.map(({ id, review, stars, userId, User }) => (
+                            <div className='review-bundle' key={review}>
+                                <li className='posted-reviews' key={id}>
+                                    <span className='user-review-name'>
+                                        {User.firstName} {User.lastName}
+                                    </span>
+                                    {review}
+                                    <span>
+                                        <i class="fa-sharp fa-solid fa-star"></i> {stars}
+                                    </span>
                                 </li>
                             </div>
                         ))

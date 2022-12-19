@@ -1,16 +1,44 @@
+.input-text {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
 .inputBox-review {
-    padding: 5px 0px;
+    padding: 3px 10px;
+    background-color: rgb(250, 128, 114, 0.1);
+    border-radius: 0.25em;
+    width: 380px;
 }
 
 .create-input-review {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
-    justify-content: center;
-    gap: 0.2em;
-  }
+    justify-content: flex-start;
+    gap: 1em;
+}
 
-  .review-star {
+.review-star {
     width: 35px;
     text-align: center;
-  }
+    margin-bottom: 1em;
+}
+
+.submit-review {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: auto;
+    height: 20px;
+    margin: 1em 3em;
+    padding: 10px 30px 10px 30px;
+    color: #FFF;
+    background-color: salmon;
+    border-radius: 5px;
+    border: 1px solid salmon;
+}
+
+.title {
+    margin: 1em 0;
+}
