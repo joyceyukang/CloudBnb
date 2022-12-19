@@ -1493,4 +1493,4 @@ Return spots filtered by query parameters.
     }
     ```
 
-    [database schema]: schema.png
+    [database schema]: ../schema/schema.png

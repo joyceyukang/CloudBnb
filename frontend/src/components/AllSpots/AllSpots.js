@@ -14,7 +14,7 @@ const AllSpots = () => {
     }, [dispatch])
 
     return (
-        <div>
+        <div className='whole-page'>
             <ul className='spot-items'>
                 {spots.map(({ id, name, previewImage, state, city, avgRating, price }) => (
                     <li className='spot-children' key={id}>

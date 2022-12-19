@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     stars: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
     },
   }, {
     sequelize,
