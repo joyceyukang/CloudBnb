@@ -83,7 +83,7 @@ const SingleSpot = () => {
                 </div>
                 <div className='owner-price'>
                     <span>
-                        Enitre home hosted by {owner}
+                        Entire home hosted by {owner}
                     </span>
                     <span>
                         {`$${price} night`}
