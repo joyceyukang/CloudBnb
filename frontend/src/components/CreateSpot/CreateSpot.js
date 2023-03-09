@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createSpot } from '../../store/spotReducer';
 import './CreateSpot.css'
+import default_image from './default_image.png'
 
 
 const CreateSpot = () => {
@@ -38,17 +39,9 @@ const CreateSpot = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
-        // console.log("TEST", payload, imageUrl)
-
+        setImageUrl(default_image)
         setFormErrors(validate(payload))
         setIsSubmit(true)
-
-        // console.log(!payload.name)
-
-        // await dispatch(createSpot(payload, imageUrl))
-
-        // history.push('/')
     }
 
     useEffect(() => {
@@ -94,18 +87,6 @@ const CreateSpot = () => {
 
         return errors;
     }
-
-    //    reset();
-    // const reset = () => {
-    //     setAddress('');
-    //     setCity('');
-    //     setState('');
-    //     setCountry('');
-    //     setName('');
-    //     setDescription('');
-    //     setPrice('');
-    //     setImageUrl('');
-    // }
 
     return (
         <div className="inputBox">
@@ -181,7 +162,7 @@ const CreateSpot = () => {
                 // required
                 />
                 <p>{formErrors.price}</p>
-                <h5>Preview Image URL</h5>
+                {/* <h5>Preview Image URL</h5>
                 <input
                     type="url"
                     onChange={(e) => setImageUrl(e.target.value)}
@@ -190,7 +171,7 @@ const CreateSpot = () => {
                     name="imageUrl"
                 // required
                 />
-                <p>{formErrors.imageUrl}</p>
+                <p>{formErrors.imageUrl}</p> */}
                 {sessionUser ? <button className="submit" type="submit">Submit</button> :
                     <div><button className="submit" disabled>Submit</button>
                         <p>Must be signed up or logged in to create a spot.</p></div>}
