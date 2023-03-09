@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { spotDetails } from '../../store/spotReducer';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { deleteSpot } from '../../store/spotReducer';
-import { getSpotReviews, getUserReviews, deleteReview } from '../../store/reviewReducer';
+import { getSpotReviews, deleteReview } from '../../store/reviewReducer';
+import Bookings from '../Bookings/Bookings'
 import CreateReview from '../CreateReview/CreateReview';
-import star from './star.png'
-import './SingleSpot.css'
+import OpenModalButton from '../OpenModalButton';
+import './SingleSpot.css';
+
 
 const SingleSpot = () => {
     const dispatch = useDispatch();
@@ -22,14 +24,8 @@ const SingleSpot = () => {
     //current spot reviews
     const spotReviews = Object.values(currentState.reviews.spot)
 
-    console.log(spotReviews)
-    console.log("HELLO  ", spotReviews[spotReviews.length - 1])
 
     let reviewUser;
-
-    // console.log(spotReviews)
-    // console.log(spot)
-    // console.log(currentState.spots.singleSpot)
 
     useEffect(() => {
         dispatch(spotDetails(spotId))
@@ -43,8 +39,6 @@ const SingleSpot = () => {
         //current user
         const sessionUserId = currentState.session.user.id
         const owner = currentState.spots.singleSpot.Owner.firstName
-
-        console.log(owner)
 
         //delete a spot
         const deletedSpot = (e) => {
@@ -72,7 +66,7 @@ const SingleSpot = () => {
             <div className='single-spot'>
                 <h1>{description}</h1>
                 <div>
-                    <span className="rating-info">{avgStarRating ? <div><img src={star} alt='Rating' /> {avgStarRating}</div> : <div> <img src={star} alt='Rating' /> New </div>}
+                    <span className="rating-info">{avgStarRating ? <div className='rating-info-child'><i className="fa-solid fa-star"></i> {avgStarRating}</div> : <div><i className="fa-solid fa-star"></i> New </div>}
                         {` ${city}, ${state}, ${country}`}
                     </span>
                 </div>
@@ -82,12 +76,37 @@ const SingleSpot = () => {
                     ))}
                 </div>
                 <div className='owner-price'>
-                    <span>
+                    <span className='owner-name'>
                         Entire home hosted by {owner}
                     </span>
-                    <span>
-                        {`$${price} night`}
-                    </span>
+                    <div className='booking-card'>
+                        <span className='price-rate-review'>
+                            <span className='pricey'>
+                                <b>
+                                    {`$${price}`}
+                                    &nbsp;
+                                </b>
+                                night
+                                &nbsp;
+                            </span>
+                            <div className='rate-review-info'>
+                                <span className="rating-info">
+                                    {avgStarRating ? <div className='rating-info-child'><i className="fa-solid fa-star"></i>{avgStarRating}&nbsp;</div> : <div className='rating-info-child'><i className="fa-solid fa-star"></i>New&nbsp;</div>}
+                                </span>
+                                &#183;
+                                <span className='review-length'>
+                                    &nbsp;
+                                    <u>
+                                        {`${spotReviews.length} reviews`}
+                                    </u>
+                                </span>
+                            </div>
+                        </span>
+                        <span className='availability'>
+                            <OpenModalButton className='availability-child' buttonText="Reserve"
+                                modalComponent={<Bookings spotId={id}/>} />
+                        </span>
+                    </div>
                 </div>
                 <div className="review-card">
                     <h4 className='review-title'>Reviews:</h4>
@@ -99,8 +118,8 @@ const SingleSpot = () => {
                                         {User.firstName} {User.lastName}
                                     </span>
                                     {review}
-                                    <span>
-                                        <i class="fa-sharp fa-solid fa-star"></i> {stars}
+                                    <span className='rating-info-child'>
+                                        <i className="fa-sharp fa-solid fa-star"></i> {stars}
                                     </span>
                                     {sessionUserId === userId ? <button className='delete-review-button' onClick={deletedReview} to={`/spots/${spotId}`}>Delete</button> : null}
                                 </li>
@@ -124,14 +143,15 @@ const SingleSpot = () => {
             </div >
         )
     }
-
     else {
+        const owner = currentState.spots.singleSpot.Owner.firstName
+
         return (
             <div className='single-spot'>
                 <h1>{description}</h1>
                 <div>
                     <span className="rating-info">
-                        {avgStarRating ? <div><i class="fa-sharp fa-solid fa-star"></i> {avgStarRating}</div> : <div> <i class="fa-sharp fa-solid fa-star"></i> New </div>}
+                        {avgStarRating ? <div><i className="fa-sharp fa-solid fa-star"></i> {avgStarRating}</div> : <div> <i className="fa-sharp fa-solid fa-star"></i> New </div>}
                         {` ${city}, ${state}, ${country}`}
                     </span>
                 </div>
@@ -140,10 +160,43 @@ const SingleSpot = () => {
                         <img className="singleImg" key={id} src={image.url} alt={name} />
                     ))}
                 </div>
+                <div className='owner-price'>
+                    <span className='owner-name'>
+                        Entire home hosted by {owner}
+                    </span>
+                    <div className='booking-card'>
+                        <span className='price-rate-review'>
+                            <span className='pricey'>
+                                <b>
+                                    {`$${price}`}
+                                    &nbsp;
+                                </b>
+                                night
+                                &nbsp;
+                            </span>
+                            <div className='rate-review-info'>
+                                <span className="rating-info">
+                                    {avgStarRating ? <div className='rating-info-child'><i className="fa-solid fa-star"></i>{avgStarRating}&nbsp;</div> : <div className='rating-info-child'><i className="fa-solid fa-star"></i>New&nbsp;</div>}
+                                </span>
+                                &#183;
+                                <span className='review-length'>
+                                    &nbsp;
+                                    <u>
+                                        {`${spotReviews.length} reviews`}
+                                    </u>
+                                </span>
+                            </div>
+                        </span>
+                        <span className='availability'>
+                            <OpenModalButton className='availability-child' buttonText="Reserve"
+                                modalComponent={<Bookings />} />
+                        </span>
+                    </div>
+                </div>
                 <div className="review-card">
                     <h4>Reviews:</h4>
                     <span>
-                        {spotReviews.length ? spotReviews.map(({ id, review, stars, userId, User }) => (
+                        {spotReviews.length ? spotReviews.map(({ id, review, stars, User }) => (
                             <div className='review-bundle' key={review}>
                                 <li className='posted-reviews' key={id}>
                                     <span className='user-review-name'>
@@ -151,7 +204,7 @@ const SingleSpot = () => {
                                     </span>
                                     {review}
                                     <span>
-                                        <i class="fa-sharp fa-solid fa-star"></i> {stars}
+                                        <i className="fa-sharp fa-solid fa-star"></i> {stars}
                                     </span>
                                 </li>
                             </div>
@@ -159,7 +212,7 @@ const SingleSpot = () => {
                             : <p>No Reviews</p>}
                     </span>
                 </div>
-            </div >
+            </div>
         )
     }
 }

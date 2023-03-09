@@ -4,7 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import './Navigation.css'
 
 function ProfileButton({ user }) {
@@ -39,12 +39,17 @@ function ProfileButton({ user }) {
     history.push('/')
   };
 
+  const trip = (e) => {
+    e.preventDefault();
+    history.push('/user/trips')
+  }
+
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <div>
+    <div className="profile-card">
       <button className="profile-button" onClick={openMenu}>
-        <i class="fa-solid fa-bars"></i>
+        <i className="fa-solid fa-bars"></i>
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
@@ -52,8 +57,12 @@ function ProfileButton({ user }) {
           {user ? (
             <>
               <li>{user.username}</li>
-              <li>{user.firstName} {user.lastName}</li>
               <li>{user.email}</li>
+              <li>
+                <button className="loginSign-button1" onClick={trip}>
+                    Trips
+                </button>
+              </li>
               <li>
                 <button className="loginSign-button1" onClick={logout}>Log Out</button>
               </li>
