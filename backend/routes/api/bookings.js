@@ -11,45 +11,70 @@ router.get('/current', requireAuth, async (req, res) => {
     const { user } = req
 
     let allBookings = await Booking.findAll({
-        include: [
-            {
-                model: Spot,
-                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
-                include: [
-                    {
-                        model: SpotImage,
-                        attributes: ['url']
-                    }
-                ]
-            }
-        ],
+        // include: [
+        //     {
+        //         model: Spot,
+        //         attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+        //         include: [
+        //             {
+        //                 model: SpotImage,
+        //                 attributes: ['url']
+        //             }
+        //         ]
+        //     }
+        // ],
         where: {
             userId: user.id,
         }
     });
+    
+    // console.log(allBookings)
 
     if (user && allBookings.length) {
 
         let bookingList = []
-        allBookings.forEach(booking => {
-            bookingList.push(booking.toJSON())
-        });
+        for(let booking of allBookings) {
+            // bookingList.push(booking.toJSON())
+            let singleBooking = booking.toJSON()
+            let spot = await Spot.findOne({
+                where: { id: booking.spotId },
+                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+                raw: true
+            })
 
-        bookingList.forEach(booking => {
-            if (booking.Spot.SpotImages[0]) {
-                booking.Spot.previewImage = booking.Spot.SpotImages[0].url
-            } else if (!booking.Spot.SpotImages.length) {
-                booking.Spot.previewImage = "No preview image"
+            // console.log(spot)
+
+            let spotImage = await SpotImage.findOne({
+                where: { spotId: spot.id }
+            })
+
+            // console.log(spotImage)
+
+            if (spotImage) {
+                spot.previewImage = spotImage.url
+            }
+            if(spot) {
+                singleBooking.Spot = spot
             }
 
-            delete booking.Spot.SpotImages
-        })
+            bookingList.push(singleBooking)
+        }
+
+        // console.log(bookingList)
+
+        // bookingList.forEach(booking => {
+        //     if (booking.Spot.SpotImages) {
+        //         booking.Spot.previewImage = booking.Spot.SpotImages[0].url
+        //     } else if (!booking.Spot.SpotImages) {
+        //         booking.Spot.previewImage = "No preview image"
+        //     }
+
+        //     delete booking.Spot.SpotImages
+        // })
 
         res.json(bookingList)
     } else if (!allBookings.length) {
-        return res.json({
-            message: "User has no bookings"
-        })
+        res.json([]) //empty
     } else {
         return res.json({
             message: "Required to be owner and logged in"
@@ -105,9 +130,32 @@ router.post('/:spotId', requireAuth, async (req, res) => {
         })
 
         let bookingList = []
-        allBookings.forEach(booking => {
-            bookingList.push(booking.toJSON())
-        })
+        for(let booking of allBookings) {
+            // bookingList.push(booking.toJSON())
+            let singleBooking = booking.toJSON()
+            let spot = await Spot.findOne({
+                where: { id: booking.spotId },
+                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+                raw: true
+            })
+
+            // console.log(spot)
+
+            let spotImage = await SpotImage.findOne({
+                where: { spotId: spot.id }
+            })
+
+            // console.log(spotImage)
+
+            if (spotImage) {
+                spot.previewImage = spotImage.url
+            }
+            if(spot) {
+                singleBooking.Spot = spot
+            }
+
+            bookingList.push(singleBooking)
+        }
 
         bookingList.forEach(booking => {
             let dbStart = booking.startDate.getTime()
@@ -149,6 +197,8 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 
     let booking = await Booking.findByPk(req.params.bookingId)
 
+    // console.log(booking)
+
     if(!booking) {
         res.status(404)
         return res.json({
@@ -187,38 +237,88 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         }
 
         let allBookings = await Booking.findAll({
-            where: { spotId: booking.spotId }
+            where: { spotId: booking.spotId },
         })
 
         let bookingList = []
-        allBookings.forEach(booking => {
-            bookingList.push(booking.toJSON())
-        })
+        for(let booking of allBookings) {
+            // bookingList.push(booking.toJSON())
+            let singleBooking = booking.toJSON()
+            let spot = await Spot.findOne({
+                where: { id: booking.spotId },
+                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+                raw: true
+            })
 
-        bookingList.forEach(booking => {
-            let dbStart = booking.startDate.getTime()
-            let dbEnd = booking.endDate.getTime()
+            // console.log(spot)
 
-            if ((start === dbStart || (start > dbStart && start < dbEnd) || start === dbEnd) || 
-            (end === dbStart || (end < dbEnd && end > dbStart) || end === dbEnd)) {
-                return res.json({
-                    message: "Sorry, this spot is already booked for the specified dates",
-                    statusCode: 403,
-                    errors: {
-                        startDate: "Start date conflicts with an existing booking",
-                        endDate: "End date conflicts with an existing booking"
-                    }
-                })
+            let spotImage = await SpotImage.findOne({
+                where: { spotId: spot.id }
+            })
+
+            // console.log(spotImage)
+
+            if (spotImage) {
+                spot.previewImage = spotImage.url
             }
-        })
+            if(spot) {
+                singleBooking.Spot = spot
+            }
+
+            bookingList.push(singleBooking)
+        }
+
+        // bookingList.forEach(booking => {
+        //     let dbStart = booking.startDate.getTime()
+        //     let dbEnd = booking.endDate.getTime()
+
+        //     if ((start === dbStart || (start > dbStart && start < dbEnd) || start === dbEnd) || 
+        //     (end === dbStart || (end < dbEnd && end > dbStart) || end === dbEnd)) {
+        //         return res.json({
+        //             message: "Sorry, this spot is already booked for the specified dates",
+        //             statusCode: 403,
+        //             errors: {
+        //                 startDate: "Start date conflicts with an existing booking",
+        //                 endDate: "End date conflicts with an existing booking"
+        //             }
+        //         })
+        //     }
+        // })
         
-        booking.startDate = new Date(start);
-        booking.endDate = new Date(end);
+        // booking.startDate = new Date(start);
+        // booking.endDate = new Date(end);
+        
+        // await booking.save()
 
-        await booking.save()
+        const updatedBooking = await booking.update({
+            startDate,
+            endDate
+        })
 
-        res.json(booking);
+        let spot = await Spot.findOne({
+            where: { id: booking.spotId },
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+            raw: true
+        })
 
+        // console.log(spot)
+
+        let spotImage = await SpotImage.findOne({
+            where: { spotId: spot.id }
+        })
+
+        // console.log(spotImage)
+
+        if (spotImage) {
+            spot.previewImage = spotImage.url
+        }
+        if(spot) {
+            updatedBooking.Spot = spot
+        }
+
+        // console.log(updatedBooking)
+
+        res.json(updatedBooking);
     }
 });
 
