@@ -257,7 +257,7 @@ router.post('/', requireAuth, async (req, res) => {
             statusCode: 403
         });
     }
-})
+});
 
 //POST api/spots/:spotId/images
 router.post('/:spotId/images', requireAuth, async (req, res) => {

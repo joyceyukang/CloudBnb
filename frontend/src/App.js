@@ -8,6 +8,7 @@ import CreateSpot from "./components/CreateSpot/CreateSpot";
 import SingleSpot from "./components/SingleSpot/SingleSpot";
 import EditSpot from "./components/EditSpot/EditSpot";
 import { getSpots } from "./store/spotReducer";
+import BookingsPage from "./components/Bookings/BookingsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
           <Route path='/spots/new' component={CreateSpot} />
           <Route exact path='/spots/:spotId' component={SingleSpot} />
           <Route exact path='/spots/:spotId/edit' component={EditSpot} />
+          <Route exact path='/user/trips' component={BookingsPage} />
         </Switch>
       )}
     </>

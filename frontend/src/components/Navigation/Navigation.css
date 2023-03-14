@@ -11,44 +11,56 @@
     gap: 20px;
 }
 
+.bar-right li a {
+    color: rgba(250, 128, 114);
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.bar-right li a:hover {
+    background-color: rgb(246, 246, 246);
+    transition-duration: 0.4s;
+    border-radius: 15px;
+}
+
 .create {
     display: flex;
     margin-left: 800px;
 }
 
-.cloud {
-    height: 2em;
-    width: 2em;
+.fa-cloud {
+    color: salmon;
 }
 
 .hidden {
     display: none
 }
 
-.loginSign {
-    padding: 0.25rem;
-}
-
 .loginSign-button {
-    width: 80px;
+    width: 100%;
     padding: 0.25rem;
-    background-color: white;
+    background-color: salmon;
     border-radius: 0.25rem;
-    border: none;
-}
-
-.loginSign-button:hover {
-    background: salmon;
-    transition: background 300ms ease-in-out;
+    border: 1px salmon solid;
     color: white;
 }
 
 .loginSign-button1 {
-    background: salmon;
+    background: white;
     border: none;
     border-radius: 0.25rem;
-    padding: 0.25rem;
-    color: white;
+    color: black;
+    display: flex;
+    padding: 5px 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+}
+
+.loginSign-button1:hover {
+    background-color: rgb(246, 246, 246);
+    transition-duration: 0.4s;
 }
 
 .logo {
@@ -63,7 +75,9 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     justify-content: space-between;
     list-style: none;
-    padding: 0px 40px;
+    padding: 10px 80px;
+    margin: 0;
+    border-bottom: solid 1px lightgrey;
 }
 
 .profile-button {
@@ -81,23 +95,35 @@
 
 .profile-dropdown {
     position: relative;
+    width: 100%;
 }
 
 .dropdown-menu {
-    align-items: flex-end;
-    align-content: flex-end;
+    /* align-items: center; */
     background-color: white;
     border-radius: .25rem;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.1);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    font-size: 14px;
-    gap: 0.25rem;
-    height: auto;
+    font-size: 13px;
+    /* gap: 0.25rem; */
+    /* height: auto; */
     list-style: none;
     padding: 0.75rem;
     position: absolute;
     right: 0;
     top: calc(100% + 0.25rem);
+    flex-wrap: wrap;
 }
 
+.dropdown-menu li {
+    display: flex;
+    padding: 4px;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+}

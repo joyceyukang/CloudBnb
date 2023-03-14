@@ -42,14 +42,27 @@ a:hover {
     flex-wrap: wrap;
     margin: 0 62px;
     padding: 0;
-    /* width: 95%; */
-    /* justify-content: space-evenly; */
-}
+    justify-content: space-evenly;
 
+}
 
 .spotImages {
     object-fit: cover;
     width: 275px;
     height: 230px;
     border-radius: 10px;
+}
+
+.reservation-date {
+    padding: 5px;
+    font-size: 13px;
+    color: grey;
+}
+
+.bookings-container {
+    padding: 0 80px;
+}
+
+.reservation-title {
+    font-style: italic;
 }

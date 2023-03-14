@@ -12,7 +12,8 @@ function Navigation({ isLoaded }) {
       <div className="bar-left">
         <li>
           <NavLink exact to="/">
-            <img className="cloud" src="https://img.icons8.com/ios/512/happy-cloud.png" alt="logo" />
+            {/* <img className="cloud" src="https://img.icons8.com/ios/512/happy-cloud.png" alt="logo" /> */}
+            <i className="fa-solid fa-cloud"></i>
           </NavLink>
         </li>
         <li>
