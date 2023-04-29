@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joyceyukang/Mod4-project.git"
+    "url": "git+https://github.com/joyceyukang/CloudBnb.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/joyceyukang/Mod4-project/issues"
+    "url": "https://github.com/joyceyukang/CloudBnb/issues"
   },
-  "homepage": "https://github.com/joyceyukang/Mod4-project#readme",
+  "homepage": "https://github.com/joyceyukang/CloudBnb#readme",
   "description": ""
 }

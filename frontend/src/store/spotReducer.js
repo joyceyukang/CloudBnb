@@ -58,7 +58,7 @@ export const spotDetails = (spotId) => async dispatch => {
 
 //create spot
 export const createSpot = (spot, url) => async dispatch => {
-    console.log(spot)
+    // console.log(spot)
     const response = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -67,7 +67,7 @@ export const createSpot = (spot, url) => async dispatch => {
     
     if (response.ok) {
         const newSpot = await response.json();
-        console.log()
+        // console.log()
         const spotImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

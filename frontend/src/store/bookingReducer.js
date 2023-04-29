@@ -65,7 +65,7 @@ export const updateBooking = (booking, bookingId) => async dispatch => {
 
     if (response.ok) {
         const update = await response.json()
-        console.log(update)
+        // console.log(update)
         dispatch(editBooking(update))
         return update;
     }
