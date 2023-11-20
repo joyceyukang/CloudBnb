@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createSpot } from '../../store/spotReducer';
 import './CreateSpot.css'
-import default_image from './default_image.png'
+// import default_image from './default_image.png'
 
 
 const CreateSpot = () => {
@@ -39,7 +39,7 @@ const CreateSpot = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setImageUrl(default_image)
+        setImageUrl('https://cdna.artstation.com/p/assets/images/images/055/676/644/large/tutu-.jpg?1667492960')
         setFormErrors(validate(payload))
         setIsSubmit(true)
     }
